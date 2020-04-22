@@ -77,12 +77,16 @@ Create a new branch for every patch and then merge it to the local master. The m
 
 Then setup the patches in all your branches
 
+You can also use ./suckrebase for updating the branches.
+
 ## Patch updates
 
     git checkout <patch-branch>
     git reset --hard forked/master
 
-Then download the new patch version and apply as normal
+Then download the new patch version and apply as normal.
+
+To push to repository, you might need --force.
 
 ## Save any branches to your repository
 

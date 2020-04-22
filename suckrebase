@@ -1,8 +1,12 @@
 #!/usr/bin/env bash
+
+# Usage: After updating the master branch with a new release, use this to also update your branches.
+
 git checkout master &&
-make clean && rm -f config.h && git reset --hard origin/master && git pull &&
+make clean && rm -f config.h && git reset --hard HEAD && git pull &&
 for branch in $(git for-each-ref --format='%(refname)' refs/heads/ | cut -d'/' -f3); do
 	if [ "$branch" != "master" ];then
-		git checkout $branch && git rebase --preserve-merges master
+		git checkout $branch && git rebase --rebase-merges master
 	fi
 done
+git checkout master
