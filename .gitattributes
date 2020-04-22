@@ -1,0 +1,4 @@
+suckdiff    merge=ours
+suckmerge   merge=ours
+suckrebase  merge=ours
+README.md   merge=ours

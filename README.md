@@ -9,6 +9,7 @@
     git push forked master
 
     cd dwm
+    git config merge.ours.driver true
     make && sudo make clean install
 
 Don't do any changes on the master branch.
@@ -91,3 +92,12 @@ To push to repository, you might need --force.
 ## Save any branches to your repository
 
     git push -u forked --all
+
+## Other
+
+The suckdiff, suckmerge and suckrebase scripts were copied from <https://gitlab.com/uoou/dotfiles> and then changed to my liking.
+
+You might want to enable git rerere. It It means reuse recorded resolution. It records a merge conflict that has been resolved and
+reuses it again when that merge conflict happens again.
+
+    git config rerere.enabled true
