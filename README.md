@@ -11,6 +11,10 @@
     cd dwm
     make && sudo make clean install
 
+Don't do any changes on the master branch.
+
+Create a new branch for every patch and then merge it to the local master. The master branch commits should have only the base code, without any generated files or any modifications whatsoever.
+
 ## Setup a new patch
 
     make clean && rm -f config.h && git reset --hard forked/master
@@ -65,6 +69,6 @@ Then setup the patches in all your branches
 
 Then download the new patch version and apply as normal
 
-## Save to your repository
+## Save any branches to your repository
 
-    git push forked --all
+    git push -u forked --all
