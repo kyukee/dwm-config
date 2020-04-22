@@ -32,7 +32,7 @@ for branch in $(git branch --no-merged | tr -d '[:blank:]'); do
 	fi
 done
 
-if [ failure_flag -eq 0 ];then
+if [ $failure_flag -eq 0 ];then
     make && sudo make clean install
 fi
 
