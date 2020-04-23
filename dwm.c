@@ -672,14 +672,14 @@ deck(Monitor *m) {
 		mw = m->ww;
 		ns = 1;
 	}
-	for(i = 0, my = gappx, c = nexttiled(m->clients); c; c = nexttiled(c->next), i++)
+	for(i = 0, my = gappov, c = nexttiled(m->clients); c; c = nexttiled(c->next), i++)
 		if(i < m->nmaster) {
-			h = (m->wh - my) / (MIN(n, m->nmaster) - i) - gappx;
-			resize(c, m->wx + gappx, m->wy + my, mw - (2*c->bw) - gappx*(5-ns)/2, h - (2*c->bw), False);
-			my += HEIGHT(c) + gappx;
+			h = (m->wh - my) / (MIN(n, m->nmaster) - i) - gappov;
+			resize(c, m->wx + gappoh, m->wy + my, mw - (2*c->bw) - gappih*(5-ns)/2, h - (2*c->bw), False);
+			my += HEIGHT(c) + gappiv;
 		}
 		else
-			resize(c, m->wx + mw + gappx/ns, m->wy + gappx, m->ww - mw - (2*c->bw) - gappx*(5-ns)/2, m->wh - (2*c->bw) - 2*gappx, False);
+			resize(c, m->wx + mw + gappih/ns, m->wy + gappov, m->ww - mw - (2*c->bw) - gappih*(5-ns)/2, m->wh - (2*c->bw) - 2*gappov, False);
 }
 
 void
