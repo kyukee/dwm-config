@@ -12,6 +12,7 @@ diffdir="${dotfiles}/fixed_patch_diffs/"
 olddiffdir="${dotfiles}/fixed_patch_diffs/old/"
 commit_date=$(git show --format="%ci %cr" original/master | head -n 1 | awk '{print $1}')
 curr_date=$(date --iso-8601)
+short_hash=$(git show-ref --hash=7 original/master)
 rm -rf "$olddiffdir" &&
 mkdir -p "$olddiffdir" &&
 mkdir -p "$diffdir" &&
@@ -20,6 +21,6 @@ make clean && rm -f config.h && git reset --hard forked/master &&
 for branch in $(git for-each-ref --format='%(refname)' refs/heads/ | cut -d'/' -f3); do
 	if [ "$branch" != "master" ];then
         # ':!folder' is a git feature to exclude paths and files. It can also be used in this format ':(exclude)folder'
-		git diff master..$branch -- . ':!patches' > "${diffdir}dwm_${branch}_remote=${commit_date}_today=${curr_date}.diff"
+		git diff master..$branch -- . ':!patches' > "${diffdir}dwm_${branch}_${short_hash}_remote=${commit_date}_today=${curr_date}.diff"
 	fi
 done
