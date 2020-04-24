@@ -46,12 +46,14 @@ static const float mfact     = 0.6; /* factor of master area size [0.05..0.95] *
 static const int nmaster     = 1;    /* number of clients in master area */
 static const int resizehints = 0;    /* 1 means respect size hints in tiled resizals */
 
+#include "layouts.c"
 static const Layout layouts[] = {
 	/* symbol     arrange function */
 	{ "tile",     tile },    /* first entry is default */
 	{ "float",    NULL },    /* no layout function means floating behavior */
 	{ "[M]",      monocle },
 	{ "[D]",      deck },
+	{ "HHH",      grid },
 	{ NULL,       NULL },
 };
 
@@ -97,6 +99,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_Left,   cyclelayout,    {.i = -1 } },
 	{ MODKEY,                       XK_Right,  cyclelayout,    {.i = +1 } },
 	{ MODKEY,                       XK_c,      setlayout,      {.v = &layouts[3]} },
+	{ MODKEY,                       XK_g,      setlayout,      {.v = &layouts[4]} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
 	{ MODKEY,                       XK_f,      togglefullscr,  {0} },
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
