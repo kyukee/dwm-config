@@ -1,5 +1,7 @@
 /* See LICENSE file for copyright and license details. */
 
+#include "tcl.c"
+
 /* appearance */
 static const unsigned int borderpx  = 6;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
@@ -60,6 +62,7 @@ static const Layout layouts[] = {
 	{ "[M]",      monocle },
 	{ "[D]",      deck },
 	{ "HHH",      grid },
+	{ "|||",      tcl },
 	{ NULL,       NULL },
 };
 
@@ -108,6 +111,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_Right,  cyclelayout,    {.i = +1 } },
 	{ MODKEY,                       XK_c,      setlayout,      {.v = &layouts[3]} },
 	{ MODKEY,                       XK_g,      setlayout,      {.v = &layouts[4]} },
+    { MODKEY,                       XK_s,      setlayout,      {.v = &layouts[5]} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
 	{ MODKEY,                       XK_f,      togglefullscr,  {0} },
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
