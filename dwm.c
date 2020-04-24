@@ -163,6 +163,7 @@ static void configurenotify(XEvent *e);
 static void configurerequest(XEvent *e);
 static Monitor *createmon(void);
 static void cyclelayout(const Arg *arg);
+static void deck(Monitor *m);
 static void destroynotify(XEvent *e);
 static void detach(Client *c);
 static void detachstack(Client *c);
@@ -701,6 +702,33 @@ destroynotify(XEvent *e)
 
 	if ((c = wintoclient(ev->window)))
 		unmanage(c, 1);
+}
+
+void
+deck(Monitor *m) {
+	unsigned int i, n, h, mw, my, ns;
+	Client *c;
+
+	for(n = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), n++);
+	if(n == 0)
+		return;
+
+	if(n > m->nmaster) {
+		mw = m->nmaster ? m->ww * m->mfact : 0;
+		ns = m->nmaster > 0 ? 2 : 1;
+		snprintf(m->ltsymbol, sizeof m->ltsymbol, "[%d]", n - m->nmaster);
+	} else {
+		mw = m->ww;
+		ns = 1;
+	}
+	for(i = 0, my = gappov, c = nexttiled(m->clients); c; c = nexttiled(c->next), i++)
+		if(i < m->nmaster) {
+			h = (m->wh - my) / (MIN(n, m->nmaster) - i) - gappov;
+			resize(c, m->wx + gappoh, m->wy + my, mw - (2*c->bw) - gappih*(5-ns)/2, h - (2*c->bw), False);
+			my += HEIGHT(c) + gappiv;
+		}
+		else
+			resize(c, m->wx + mw + gappih/ns, m->wy + gappov, m->ww - mw - (2*c->bw) - gappih*(5-ns)/2, m->wh - (2*c->bw) - 2*gappov, False);
 }
 
 void
