@@ -127,6 +127,7 @@ struct Monitor {
 	int eby;	      /* extra bar geometry */
 	int mx, my, mw, mh;   /* screen size */
 	int wx, wy, ww, wh;   /* window area  */
+	unsigned int borderpx;
 	unsigned int seltags;
 	unsigned int sellt;
 	unsigned int tagset[2];
@@ -214,6 +215,7 @@ static void runAutostart(void);
 static void scan(void);
 static int sendevent(Client *c, Atom proto);
 static void sendmon(Client *c, Monitor *m);
+static void setborderpx(const Arg *arg);
 static void setclientstate(Client *c, long state);
 static void setcurrentdesktop(void);
 static void setdesktopnames(void);
@@ -707,6 +709,7 @@ createmon(void)
 	m->nmaster = nmaster;
 	m->showbar = showbar;
 	m->topbar = topbar;
+	m->borderpx = borderpx;
 	m->lt[0] = &layouts[0];
 	m->lt[1] = &layouts[1 % LENGTH(layouts)];
 	strncpy(m->ltsymbol, layouts[0].symbol, sizeof m->ltsymbol);
@@ -1241,7 +1244,7 @@ manage(Window w, XWindowAttributes *wa)
 	/* only fix client y-offset, if the client center might cover the bar */
 	c->y = MAX(c->y, ((c->mon->by == c->mon->my) && (c->x + (c->w / 2) >= c->mon->wx)
 		&& (c->x + (c->w / 2) < c->mon->wx + c->mon->ww)) ? bh : c->mon->my);
-	c->bw = borderpx;
+	c->bw = c->mon->borderpx;
 
 	wc.border_width = c->bw;
 	XConfigureWindow(dpy, w, CWBorderWidth, &wc);
@@ -1679,6 +1682,27 @@ sendmon(Client *c, Monitor *m)
 	attachstack(c);
 	focus(NULL);
 	arrange(NULL);
+}
+
+void
+setborderpx(const Arg *arg)
+{
+	Client *c;
+
+	if (arg->i == 0)
+		selmon->borderpx = borderpx;
+	else if (selmon->borderpx + arg->i < 0)
+		selmon->borderpx = 0;
+	else
+		selmon->borderpx += arg->i;
+
+	for (c = selmon->clients; c; c = c->next)
+		if (c->bw + arg->i < 0)
+			c->bw = selmon->borderpx = 0;
+		else
+			c->bw = selmon->borderpx;
+
+	arrange(selmon);
 }
 
 void
