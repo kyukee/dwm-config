@@ -7,7 +7,8 @@ feh --bg-fill /home/kyukee/Pictures/wallpapers/imageedit_8_8640256032.png
 setxkbmap pt
 xrdb ~/.Xresources
 #/home/kyukee/Scripts/i3_dynamic_window_titles.sh
-
+killall dwmblocks
+dwmblocks &
 
 ##### Executed one time at startup
 
@@ -28,5 +29,4 @@ volumeicon &
 yad --notification --command='gsimplecal' --image='/usr/share/icons/clarity-albus/16x16/apps/calendar.png' --text='yad notification - Calendar' &
 
 nice -n 19 /home/kyukee/Scripts/fmenu-rofi.sh -u &
-dwmblocks &
 (sleep 1; urxvt) &
