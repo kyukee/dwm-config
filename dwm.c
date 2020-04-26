@@ -1013,7 +1013,7 @@ drawbar(Monitor *m)
 	if (m == selmon) { /* extra status is only drawn on selected monitor */
 		drw_setscheme(drw, scheme[SchemeNorm]);
         int mid = (mons->ww - TEXTW(estext)) / 2;
-		drw_text(drw, 0, 0, mons->ww, bh, mid+15, estext, 0);
+		drw_text(drw, 0, 0, mons->ww, bh, mid+10, estext, 0);
 		drw_map(drw, m->extrabarwin, 0, 0, m->ww, bh);
 	}
 }
