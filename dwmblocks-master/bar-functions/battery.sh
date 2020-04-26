@@ -7,7 +7,7 @@ battery() {
     charge_icon=""
 
     if [ "$charge" -eq 1 ]; then
-        charge_icon=""
+        charge_icon=" "
     fi
 
     if [ "$battery" -lt 20 ]; then
@@ -24,7 +24,7 @@ battery() {
         icon=""
     fi
 
-    printf "%s" "$icon $battery $charge_icon"
+    printf "%s" "$icon $battery$charge_icon"
 }
 
 battery
