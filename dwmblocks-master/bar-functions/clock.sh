@@ -1,7 +1,7 @@
 #!/bin/sh
 
 clock() {
-    printf "$(date '+%H:%M:%S')"
+    printf "\uec18 $(date '+%H:%M')"
 }
 
 clock
