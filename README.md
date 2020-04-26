@@ -18,8 +18,8 @@ Create a new branch for every patch and then merge it to the local master. The m
 
 ## Setup a new patch
 
-    make clean && rm -f config.h && git reset --hard forked/master
-    git checkout -b pertag
+    make clean && rm -f config.h
+    git checkout -b pertag original/master
 
     wget -P patches https://dwm.suckless.org/patches/pertag/dwm-git-20120406-pertag.diff
     git apply patches/dwm-git-20120406-pertag.diff
@@ -45,12 +45,14 @@ Create a new branch for every patch and then merge it to the local master. The m
       $EDITOR file
     rm *.rej
 
-- Method 3: look at the error lines, patch them in a text editor, them patch the rest normally
+- Method 3: the boring but safe way
+
+    look at the error lines, patch them in a text editor, them patch the rest normally
 
 - Other patch error information:
   - If you have whitespace errors, you can reset the branch, remove the whitespace and try again
 
-        git reset --hard forked/master
+        git reset --hard original/master
         sed -i 's/[[:space:]]*$//' patches/patch.diff
         git apply --3way patches/patch.diff
 
@@ -74,22 +76,19 @@ Create a new branch for every patch and then merge it to the local master. The m
 ## dwm updates
 
     git fetch original master
-    git reset --hard original/master
+    git merge original/master
 
-Then setup the patches in all your branches
+Then setup the patches in all your branches, if you feel like it.
 
-You can also use ./suckrebase for updating the branches.
+You can use ./suckrebase for updating all the branches.
 
 ## Patch updates
 
-    git checkout <patch-branch>
-    git reset --hard forked/master
-
-Then download the new patch version and apply as normal.
+Checkout to the branch, then download the new patch version and apply as normal.
 
 To push to repository, you might need --force.
 
-## Save any branches to your repository
+## Save all branches to your repository
 
     git push -u forked --all
 

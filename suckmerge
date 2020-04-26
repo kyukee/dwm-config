@@ -18,7 +18,7 @@ arrayContainsElement () {
 
 # files are only generated after all branches have been merged
 if [ -f config.h ];then
-    make clean && rm -f config.h && git reset --hard forked/master
+    make clean && rm -f config.h
 fi
 
 for branch in $(git branch --no-merged | tr -d '[:blank:]'); do
