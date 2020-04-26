@@ -25,7 +25,6 @@ dunst -c ~/.config/dunst/dunstrc &
 nm-applet &
 blueberry-tray &
 volumeicon &
-volti &
 yad --notification --command='gsimplecal' --image='/usr/share/icons/clarity-albus/16x16/apps/calendar.png' --text='yad notification - Calendar' &
 
 nice -n 19 /home/kyukee/Scripts/fmenu-rofi.sh -u &
