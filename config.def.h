@@ -18,7 +18,7 @@ static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 static const double defaultopacity  = 1;
 static const char statussep         = ';';      /* separator between status bars */
-static const int horizpadbar        = 2;        /* horizontal padding for statusbar */
+static const int horizpadbar        = 1;        /* horizontal padding for statusbar */
 static const int vertpadbar         = 2;        /* vertical padding for statusbar */
 static const char *fonts[]          = { "Ricty Discord:size=12.5" };
 static const char dmenufont[]       = "monospace:size=10";
@@ -47,9 +47,9 @@ static const char *tags[] = {
     "2 \uebde", // browser (fun)
     "3 \uec24", // ide
     "4 \ue970", // file browser
-    "5 \uec48", // videos
+    "5 \uec47", // text editor
     "6 \uf001", // music
-    "7 \uec47", // text editor
+    "7 \uec48", // videos
     "8 \ue9dc", // communication
     "9 \uec01"  // browser (work)
 };
