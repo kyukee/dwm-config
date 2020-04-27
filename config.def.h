@@ -18,8 +18,8 @@ static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 static const double defaultopacity  = 1;
 static const char statussep         = ';';      /* separator between status bars */
-static const int horizpadbar        = 1;        /* horizontal padding for statusbar */
-static const int vertpadbar         = 2;        /* vertical padding for statusbar */
+static const int horizpadbar        = 0;        /* horizontal padding for statusbar */
+static const int vertpadbar         = 3;        /* vertical padding for statusbar */
 static const char *fonts[]          = { "Ricty Discord:size=12.5" };
 static const char dmenufont[]       = "monospace:size=10";
 static const char col_gray1[]       = "#222222";
@@ -72,7 +72,7 @@ static const int resizehints = 0;    /* 1 means respect size hints in tiled resi
 #include "layouts.c"
 static const Layout layouts[] = {
 	/* symbol     arrange function */
-	{ "T \uf0db",     tile },    /* first entry is default */
+	{ "T \uf0c9",     tile },    /* first entry is default */
 	{ "F \ue965",     NULL },    /* no layout function means floating behavior */
 	{ "M [M]",        monocle },
 	{ "D [D]",        deck },
