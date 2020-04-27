@@ -4,7 +4,7 @@ cpu_load() {
     printf "\uec2f $(
         top -bn1 | grep "Cpu(s)" | \
         sed "s/.*, *\([0-9.]*\)%* id.*/\1/" | \
-        awk '{n= 100 - $1; s=""n; l = length(s); if (l == 1) s=" "n".0"; else if (l == 2) s=n".0"; print s }'
+        awk '{n= 100 - $1; s=""+n; l = length(s); if (l == 1) s=" "n".0"; else if (l == 2) s=n".0"; else if (l == 3) s=" "n; print s }'
     )"
 }
 
