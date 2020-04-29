@@ -18,7 +18,7 @@ static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 static const double defaultopacity  = 1;
 static const int horizpadbar        = 0;        /* horizontal padding for statusbar */
-static const int vertpadbar         = 3;        /* vertical padding for statusbar */
+static const int vertpadbar         = 4;        /* vertical padding for statusbar */
 static const char *fonts[]          = { "Ricty Discord:size=12.5" };
 /*  Display modes of the tab bar: never shown, always shown, shown only in  */
 /*  monocle mode in the presence of several windows.                        */
