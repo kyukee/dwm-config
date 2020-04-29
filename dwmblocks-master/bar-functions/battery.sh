@@ -11,9 +11,9 @@ battery() {
     fi
 
     if [ "$battery" -lt 20 ]; then
-        icon=""
+        icon="!! "
     elif [ "$battery" -lt 40 ]; then
-        icon=""
+        icon="! "
     elif [ "$battery" -lt 50 ]; then
         icon=""
     elif [ "$battery" -lt 80 ]; then
