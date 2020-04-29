@@ -20,6 +20,12 @@ static const double defaultopacity  = 1;
 static const int horizpadbar        = 0;        /* horizontal padding for statusbar */
 static const int vertpadbar         = 3;        /* vertical padding for statusbar */
 static const char *fonts[]          = { "Ricty Discord:size=12.5" };
+/*  Display modes of the tab bar: never shown, always shown, shown only in  */
+/*  monocle mode in the presence of several windows.                        */
+/*  Modes after showtab_nmodes are disabled.                                */
+enum showtab_modes { showtab_always, showtab_never, showtab_nmodes, showtab_auto};
+static const int showtab			= showtab_always;        /* Default tab bar show mode */
+static const int toptab				= False;               /* False means bottom tab bar */
 static const char dmenufont[]       = "monospace:size=10";
 static const char col_gray1[]       = "#222222";
 static const char col_gray2[]       = "#444444";
@@ -105,6 +111,7 @@ static Key keys[] = {
 	{ MODKEY|ControlMask,           XK_d,      spawn,          SHCMD("transset-df -a --inc .1") },
 	{ MODKEY|ControlMask,           XK_f,      spawn,          SHCMD("transset-df -a .75") },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
+	{ MODKEY,                       XK_w,      tabmode,        {-1} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
 	{ MODKEY,                       XK_plus,   incnmaster,     {.i = +1 } },
@@ -180,5 +187,6 @@ static Button buttons[] = {
 	{ ClkTagBar,            0,              Button3,        toggleview,     {0} },
 	{ ClkTagBar,            MODKEY,         Button1,        tag,            {0} },
 	{ ClkTagBar,            MODKEY,         Button3,        toggletag,      {0} },
+	{ ClkTabBar,            0,              Button1,        focuswin,       {0} },
 };
 
