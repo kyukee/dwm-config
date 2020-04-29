@@ -5,8 +5,9 @@
 # add items to the excluded_branches array to exclude them from being merged into master
 
 excluded_branches=(
-  "patch1"
-  "patch2"
+  "awesomebar"
+  "extrabar"
+  "hide-vacant-tags"
 )
 
 arrayContainsElement () {

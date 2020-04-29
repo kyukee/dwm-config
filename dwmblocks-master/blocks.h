@@ -2,9 +2,9 @@
 static const Block blocks[] = {
     /*Icon*/	        /*Command*/		                        /*Update Interval*/	  /*Update Signal*/
 
-    {"", "printf 'dwm'",                                                  0,                0},
+    // {"", "printf 'dwm'",                                                  0,                0},
 
-    {"", "printf ';'",                                                    0,                0},
+    // {"", "printf ';'",                                                    0,                0},
 
     {"", "~/dwm/dwmblocks-master/bar-functions/cpu_load.sh",              2,                0},
 
