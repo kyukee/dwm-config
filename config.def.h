@@ -127,6 +127,7 @@ static const char *roficmd[] = { "rofi", "-show", "combi", NULL };
 static const char *termcmd[]  = { "urxvt", NULL };
 static const char scratchpadname[] = "scratchpad";
 static const char *scratchpadcmd[] = { "urxvt", "-name", scratchpadname, "-g", "110x34", NULL };
+static const char *roficmd_refresh_files[] = { "~/Scripts/fmenu-rofi.sh", "-f", NULL };
 
 static const char *cmd_files[]  = { "thunar", NULL };
 static const char *cmd_files2[]  = { "urxvt", "-name", "ranger", "-e", "ranger", NULL };
@@ -140,6 +141,7 @@ static Key keys[] = {
 	//{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
 	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
     { MODKEY,                       XK_d,      spawn,          {.v = roficmd } },
+    { MODKEY|ShiftMask,             XK_d,      spawn,          {.v = roficmd_refresh_files } },
     { MODKEY,                       XK_e,      spawn,          {.v = cmd_files } },
     { MODKEY,                       XK_b,      spawn,          {.v = cmd_browser } },
     { MODKEY,                       XK_u,      spawn,          {.v = cmd_text } },
