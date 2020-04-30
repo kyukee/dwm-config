@@ -1047,23 +1047,33 @@ drawtab(Monitor *m) {
 	int maxsize = bh;
 	int x = 0;
 	int w = 0;
+    int a = 0, s = 0;
 
-	//view_info: indicate the tag which is displayed in the view
-	for(i = 0; i < LENGTH(tags); ++i){
-	  if((selmon->tagset[selmon->seltags] >> i) & 1) {
-	    if(itag >=0){ //more than one tag selected
-	      itag = -1;
-	      break;
-	    }
-	    itag = i;
-	  }
-	}
+	// //view_info: indicate the tag which is displayed in the view
+	// for(i = 0; i < LENGTH(tags); ++i){
+	//   if((selmon->tagset[selmon->seltags] >> i) & 1) {
+	//     if(itag >=0){ //more than one tag selected
+	//       itag = -1;
+	//       break;
+	//     }
+	//     itag = i;
+	//   }
+	// }
 
-	if(0 <= itag  && itag < LENGTH(tags)){
-	  snprintf(view_info, sizeof view_info, "[%s]", tags[itag]);
-	} else {
-	  strncpy(view_info, "[...]", sizeof view_info);
-	}
+	// if(0 <= itag  && itag < LENGTH(tags)){
+	//   snprintf(view_info, sizeof view_info, "[%s]", tags[itag]);
+	// } else {
+	//   strncpy(view_info, "[...]", sizeof view_info);
+	// }
+
+    // indicate the current selected client number from the stack
+    for(c= nexttiled(m->clients), a= 0, s= 0; c; c= nexttiled(c->next), a++)
+        if(c == m->stack)
+            s= a+1;
+    if(!s && a)
+        s= 1;
+    snprintf(view_info, sizeof view_info, "[%d/%d]",  s, a);
+
 	view_info[sizeof(view_info) - 1 ] = 0;
 	view_info_w = TEXTW(view_info);
 	tot_width = view_info_w;
