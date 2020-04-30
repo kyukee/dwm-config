@@ -32,12 +32,18 @@ static const char col_gray2[]       = "#444444";
 static const char col_gray3[]       = "#bbbbbb";
 static const char col_gray4[]       = "#eeeeee";
 static const char col_cyan[]        = "#005577";
-static const unsigned int baralpha = 0xc1;      /* alpha range: 00 - ff */
+
+static const char col_red[]         = "#822B45";
+static const char col_purple_light[]= "#564c69";
+// static const char col_purple_dark[] = "#2c0d68";
+static const char col_purple_dark[] = "#482370";
+
+static const unsigned int baralpha = 0xc3;      /* alpha range: 00 - ff */
 static const unsigned int borderalpha = 0x9f;
 static const char *colors[][3]      = {
-	/*               fg         bg         border   */
-	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
-	[SchemeSel]  = { col_gray4, col_cyan,  col_cyan  },
+	/*               fg         bg                border   */
+	[SchemeNorm] = { col_gray3, col_gray1,        col_purple_light },
+	[SchemeSel]  = { col_gray4, col_purple_dark,  col_red  },
 };
 static const unsigned int alphas[][3]      = {
 	/*               fg      bg        border     */
@@ -73,7 +79,7 @@ static const Rule rules[] = {
     { "code-oss",             NULL,       NULL,       1 << 2,       0,           -1,        50,50,500,500,        8 },
     { "Thunar",               NULL,       NULL,       1 << 3,       0,           -1,        50,50,500,500,        8 },
 	{ "Subl3",                NULL,       NULL,       1 << 4,       0,           -1,        50,50,500,500,        8 },
-    { "URxvt",                ncmpcpp,    NULL,       1 << 5,       0,           -1,        50,50,500,500,        8 },
+    { "URxvt",               "ncmpcpp",   NULL,       1 << 5,       0,           -1,        50,50,500,500,        8 },
     { "mpv",                  NULL,       NULL,       1 << 6,       0,           -1,        50,50,500,500,        8 },
     { "zoom",                 NULL,       NULL,       1 << 7,       0,           -1,        50,50,500,500,        8 },
 
