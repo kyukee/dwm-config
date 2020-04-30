@@ -3,7 +3,7 @@
 #include "tcl.c"
 
 /* appearance */
-static const unsigned int borderpx  = 6;        /* border pixel of windows */
+static const unsigned int borderpx  = 5;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const unsigned int systraypinning = 0;   /* 0: sloppy systray follows selected monitor, >0: pin systray to monitor X */
 static const unsigned int systrayspacing = 2;   /* systray spacing */
@@ -109,16 +109,28 @@ static const char *termcmd[]  = { "urxvt", NULL };
 static const char scratchpadname[] = "scratchpad";
 static const char *scratchpadcmd[] = { "urxvt", "-name", scratchpadname, "-g", "110x34", NULL };
 
+static const char *cmd_files[]  = { "thunar", NULL };
+static const char *cmd_files2[]  = { "urxvt", "-name", "ranger", "-e", "ranger", NULL };
+static const char *cmd_browser[]  = { "firefox", NULL };
+static const char *cmd_text[]  = { "subl3", NULL };
+static const char *cmd_ide[]  = { "code", NULL };
+static const char *cmd_lock[]  = { "i3lock", "--blur=10", "--composite", "--clock", "--timecolor=ffffffff", "--timesize=90", "--datecolor=ffffffff", "--datesize=24", NULL };
+
 static Key keys[] = {
 	/* modifier                     key        function        argument */
 	//{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
 	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
     { MODKEY,                       XK_d,      spawn,          {.v = roficmd } },
+    { MODKEY,                       XK_e,      spawn,          {.v = cmd_files } },
+    { MODKEY,                       XK_b,      spawn,          {.v = cmd_browser } },
+    { MODKEY,                       XK_u,      spawn,          {.v = cmd_text } },
+    { MODKEY,                       XK_i,      spawn,          {.v = cmd_ide } },
+    { MODKEY|ControlMask,           XK_l,      spawn,          {.v = cmd_lock } },
 	{ MODKEY|ControlMask,           XK_s,      spawn,          SHCMD("transset-df -a --dec .1") },
 	{ MODKEY|ControlMask,           XK_d,      spawn,          SHCMD("transset-df -a --inc .1") },
 	{ MODKEY|ControlMask,           XK_f,      spawn,          SHCMD("transset-df -a .75") },
 	{ MODKEY|ShiftMask,             XK_Return, togglescratch,  {.v = scratchpadcmd } },
-	{ MODKEY,                       XK_b,      togglebar,      {0} },
+	{ MODKEY|ShiftMask,             XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_w,      tabmode,        {-1} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
