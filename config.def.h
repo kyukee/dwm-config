@@ -58,6 +58,11 @@ static const char *tags[] = {
     "9 \uec01"  // browser (work)
 };
 
+/* default layout per tags */
+/* The first element is for all-tag view, following i-th element corresponds to */
+/* tags[i]. Layout is referred using the layouts array index.*/
+static int def_layouts[1 + LENGTH(tags)]  = { 4, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+
 static const Rule rules[] = {
 	/* xprop(1):
 	 *	WM_CLASS(STRING) = instance, class
