@@ -1663,6 +1663,8 @@ propertynotify(XEvent *e)
 			updatewmhints(c);
 			drawbars();
 			drawtabs();
+			if (c->isurgent)
+				XSetWindowBorder(dpy, c->win, scheme[SchemeSel][ColFg].pixel);
 			break;
 		}
 		if (ev->atom == XA_WM_NAME || ev->atom == netatom[NetWMName]) {
