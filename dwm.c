@@ -1805,7 +1805,7 @@ resizeclient(Client *c, int x, int y, int w, int h)
 	c->oldy = c->y; c->y = wc.y = y;
 	c->oldw = c->w; c->w = wc.width = w;
 	c->oldh = c->h; c->h = wc.height = h;
-	if (c->isfloating){
+	if (c->isfloating && !c->isfullscreen){
         if (c->floatborderpx == 0)
             wc.border_width = borderpx;
         else
