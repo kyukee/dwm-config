@@ -4,7 +4,7 @@ day() {
     mult=$(($(date '+%d') %10))
     ending="th"
 
-    case mult in
+    case $mult in
         1) ending="st" ;;
         2) ending="nd" ;;
         3) ending="rd" ;;
