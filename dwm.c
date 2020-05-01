@@ -896,7 +896,7 @@ destroynotify(XEvent *e)
 
 void
 deck(Monitor *m) {
-	unsigned int i, n, h, mw, my, ns;
+	unsigned int i, n, h, mw, my, ns, oe = enablegaps;
 	Client *c;
 
 	for(n = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), n++);
@@ -910,15 +910,18 @@ deck(Monitor *m) {
 	} else {
 		mw = m->ww;
 		ns = 1;
+		oe = 0; // outer gaps disabled
 	}
-	for(i = 0, my = gappov, c = nexttiled(m->clients); c; c = nexttiled(c->next), i++)
+	for(i = 0, my = gappov*oe, c = nexttiled(m->clients); c; c = nexttiled(c->next), i++)
 		if(i < m->nmaster) {
-			h = (m->wh - my) / (MIN(n, m->nmaster) - i) - gappov;
-			resize(c, m->wx + gappoh, m->wy + my, mw - (2*c->bw) - gappih*(5-ns)/2, h - (2*c->bw), False);
-			my += HEIGHT(c) + gappiv;
+            // master
+			h = (m->wh - my) / (MIN(n, m->nmaster) - i) - gappov*oe;
+			resize(c, m->wx + gappoh*oe, m->wy + my, mw - (2*c->bw) - gappoh*oe*(5-ns)/2, h - (2*c->bw), False);
+			my += HEIGHT(c) + gappov*oe;
 		}
 		else
-			resize(c, m->wx + mw + gappih/ns, m->wy + gappov, m->ww - mw - (2*c->bw) - gappih*(5-ns)/2, m->wh - (2*c->bw) - 2*gappov, False);
+            //stack
+			resize(c, m->wx + mw + gappih*oe/ns, m->wy + gappov*oe, m->ww - mw - (2*c->bw) - gappov*oe*(5-ns)/2, m->wh - (2*c->bw) - 2*gappov*oe, False);
 }
 
 void
