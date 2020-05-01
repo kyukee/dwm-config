@@ -32,16 +32,17 @@ static const char col_gray2[]       = "#444444";
 static const char col_gray3[]       = "#bbbbbb";
 static const char col_gray4[]       = "#eeeeee";
 static const char col_cyan[]        = "#005577";
+static const char col_red_bright[]  = "#c52f5e";
 static const char col_red[]         = "#822B45";
 static const char col_purple_light[]= "#564c69";
 // static const char col_purple_dark[] = "#2c0d68";
 static const char col_purple_dark[] = "#482370";
 static const unsigned int baralpha = 0xc3;      /* alpha range: 00 - ff */
-static const unsigned int borderalpha = 0x9f;
-static const char *colors[][3]      = {
-	/*               fg         bg                border   */
-	[SchemeNorm] = { col_gray3, col_gray1,        col_purple_light },
-	[SchemeSel]  = { col_gray4, col_purple_dark,  col_red  },
+static const unsigned int borderalpha = 0x8f;
+static const char *colors[][4]      = {
+	/*               fg         bg                border            float border*/
+	[SchemeNorm] = { col_gray3, col_gray1,        col_purple_light, col_gray3 },
+	[SchemeSel]  = { col_gray4, col_purple_dark,  col_red,          col_red_bright },
 };
 static const unsigned int alphas[][3]      = {
 	/*               fg      bg        border     */
