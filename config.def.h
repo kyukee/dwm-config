@@ -32,12 +32,10 @@ static const char col_gray2[]       = "#444444";
 static const char col_gray3[]       = "#bbbbbb";
 static const char col_gray4[]       = "#eeeeee";
 static const char col_cyan[]        = "#005577";
-
 static const char col_red[]         = "#822B45";
 static const char col_purple_light[]= "#564c69";
 // static const char col_purple_dark[] = "#2c0d68";
 static const char col_purple_dark[] = "#482370";
-
 static const unsigned int baralpha = 0xc3;      /* alpha range: 00 - ff */
 static const unsigned int borderalpha = 0x9f;
 static const char *colors[][3]      = {
@@ -51,10 +49,13 @@ static const unsigned int alphas[][3]      = {
 	[SchemeSel]  = { OPAQUE, baralpha, borderalpha },
 };
 
+/* terminal emulator */
+static const char terminal[] = "kitty";
+
 /* tagging */
 static const char *tags[] = {
     "1 \uecc8", // terminal
-    "2 \uebde", // browser (fun)
+    "2 \uebde", // browser (personal)
     "3 \uec24", // ide
     "4 \ue970", // file browser
     "5 \uec47", // text editor
@@ -69,6 +70,7 @@ static const char *tags[] = {
 /* tags[i]. Layout is referred using the layouts array index.*/
 static int def_layouts[1 + LENGTH(tags)]  = { 4, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
+/* tag assignment and floating rules */
 static const Rule rules[] = {
 	/* xprop(1):
 	 *	WM_CLASS(STRING) = instance, class
@@ -79,7 +81,7 @@ static const Rule rules[] = {
     { "code-oss",             NULL,       NULL,       1 << 2,       0,           -1,        50,50,500,500,        8 },
     { "Thunar",               NULL,       NULL,       1 << 3,       0,           -1,        50,50,500,500,        8 },
 	{ "Subl3",                NULL,       NULL,       1 << 4,       0,           -1,        50,50,500,500,        8 },
-    { "URxvt",               "ncmpcpp",   NULL,       1 << 5,       0,           -1,        50,50,500,500,        8 },
+    { terminal,              "ncmpcpp",   NULL,       1 << 5,       0,           -1,        50,50,500,500,        8 },
     { "mpv",                  NULL,       NULL,       1 << 6,       0,           -1,        50,50,500,500,        8 },
     { "zoom",                 NULL,       NULL,       1 << 7,       0,           -1,        50,50,500,500,        8 },
 
@@ -121,19 +123,21 @@ static const Layout layouts[] = {
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
 /* commands */
+static const char *termcmd[]  = { terminal, NULL };
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 static const char *roficmd[] = { "rofi", "-show", "combi", NULL };
-static const char *termcmd[]  = { "urxvt", NULL };
-static const char scratchpadname[] = "scratchpad";
-static const char *scratchpadcmd[] = { "urxvt", "-name", scratchpadname, "-g", "110x34", NULL };
-static const char *roficmd_refresh_files[] = { "~/Scripts/fmenu-rofi.sh", "-f", NULL };
 
+static const char scratchpadname[] = "scratchpad";
+static const char *scratchpadcmd[] = { terminal, "--title", scratchpadname, NULL };
+
+static const char *cmd_rofi_refresh_files[] = { "/home/kyukee/Scripts/fmenu-rofi.sh", "-f", NULL };
 static const char *cmd_files[]  = { "thunar", NULL };
-static const char *cmd_files2[]  = { "urxvt", "-name", "ranger", "-e", "ranger", NULL };
+static const char *cmd_files_terminal[]  = { terminal, "--name", "ranger", "-e", "ranger", NULL };
+static const char *cmd_music_terminal[]  = { terminal, "--name", "ncmpcpp", "-e", "ncmpcpp", NULL };
 static const char *cmd_browser[]  = { "firefox", NULL };
-static const char *cmd_text[]  = { "subl3", NULL };
-static const char *cmd_ide[]  = { "code", NULL };
+static const char *cmd_text_editor[]  = { "subl3", NULL };
+static const char *cmd_ide[]  = { "code-oss", NULL };
 static const char *cmd_lock[]  = { "i3lock", "--blur=10", "--composite", "--clock", "--timecolor=ffffffff", "--timesize=90", "--datecolor=ffffffff", "--datesize=24", NULL };
 
 static Key keys[] = {
@@ -141,10 +145,12 @@ static Key keys[] = {
 	//{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
 	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
     { MODKEY,                       XK_d,      spawn,          {.v = roficmd } },
-    { MODKEY|ShiftMask,             XK_d,      spawn,          {.v = roficmd_refresh_files } },
+    { MODKEY|ShiftMask,             XK_d,      spawn,          {.v = cmd_rofi_refresh_files } },
     { MODKEY,                       XK_e,      spawn,          {.v = cmd_files } },
+    { MODKEY|ShiftMask,             XK_e,      spawn,          {.v = cmd_files_terminal } },
+    { MODKEY,                       XK_n,      spawn,          {.v = cmd_music_terminal } },
     { MODKEY,                       XK_b,      spawn,          {.v = cmd_browser } },
-    { MODKEY,                       XK_u,      spawn,          {.v = cmd_text } },
+    { MODKEY,                       XK_u,      spawn,          {.v = cmd_text_editor } },
     { MODKEY,                       XK_i,      spawn,          {.v = cmd_ide } },
     { MODKEY|ControlMask,           XK_l,      spawn,          {.v = cmd_lock } },
 	{ MODKEY|ControlMask,           XK_s,      spawn,          SHCMD("transset-df -a --dec .1") },
@@ -209,7 +215,7 @@ static Key keys[] = {
 	TAGKEYS(                        XK_7,                      6)
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
-	{ MODKEY|ShiftMask,             XK_e,      quit,           {0} },
+	{ MODKEY|ControlMask,           XK_e,      quit,           {0} },
 	{ MODKEY|ShiftMask,             XK_r,      quit,           {1} },
 	{ MODKEY,                       XK_o,      winview,        {0} },
 };
