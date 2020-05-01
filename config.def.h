@@ -8,7 +8,7 @@ static const unsigned int snap      = 32;       /* snap pixel */
 static const unsigned int systraypinning = 0;   /* 0: sloppy systray follows selected monitor, >0: pin systray to monitor X */
 static const unsigned int systrayspacing = 2;   /* systray spacing */
 static const int systraypinningfailfirst = 1;   /* 1: if pinning fails, display systray on the first monitor, False: display systray on the last monitor*/
-static const int showsystray        = 1;     /* 0 means no systray */
+static const int showsystray        = 1;        /* 0 means no systray */
 static const unsigned int gappih    = 10;       /* horiz inner gap between windows */
 static const unsigned int gappiv    = 10;       /* vert inner gap between windows */
 static const unsigned int gappoh    = 10;       /* horiz outer gap between windows and screen edge */
@@ -25,7 +25,7 @@ static const char *fonts[]          = { "Ricty Discord:size=12.5" };
 /*  Modes after showtab_nmodes are disabled.                                */
 enum showtab_modes { showtab_always, showtab_never, showtab_nmodes, showtab_auto};
 static const int showtab			= showtab_always;        /* Default tab bar show mode */
-static const int toptab				= False;               /* False means bottom tab bar */
+static const int toptab				= False;                 /* False means bottom tab bar */
 static const char dmenufont[]       = "monospace:size=10";
 static const char col_gray1[]       = "#222222";
 static const char col_gray2[]       = "#444444";
