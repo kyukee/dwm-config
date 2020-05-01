@@ -29,4 +29,4 @@ volumeicon &
 yad --notification --command='gsimplecal' --image='/usr/share/icons/clarity-albus/16x16/apps/calendar.png' --text='yad notification - Calendar' &
 
 nice -n 19 /home/kyukee/Scripts/fmenu-rofi.sh -u &
-(sleep 1; urxvt) &
+(sleep 1; kitty) &
