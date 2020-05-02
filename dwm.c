@@ -1053,6 +1053,7 @@ drawtab(Monitor *m) {
 	int x = 0;
 	int w = 0;
     int a = 0, s = 0;
+    int pad = 0;
 
 	// //view_info: indicate the tag which is displayed in the view
 	// for(i = 0; i < LENGTH(tags); ++i){
@@ -1105,6 +1106,12 @@ drawtab(Monitor *m) {
 	  maxsize = (m->ww - tot_width) / (m->ntabs - i);
 	} else{
 	  maxsize = m->ww;
+      if (centertab) {
+        x = (m->ww - tot_width) / 2;
+        /* cleans interspace between edge of screen and window names */
+        drw_text(drw, 0, 0, x, th, 0, "", 0);
+        pad = padtab;
+      }
 	}
 	i = 0;
 	for(c = m->clients; c; c = c->next){
@@ -1113,8 +1120,9 @@ drawtab(Monitor *m) {
 	  if(m->tab_widths[i] >  maxsize) m->tab_widths[i] = maxsize;
 	  w = m->tab_widths[i];
 	  drw_setscheme(drw, scheme[(c == m->sel) ? SchemeSel : SchemeNorm]);
-	  drw_text(drw, x, 0, w, th, 0, c->name, 0);
-	  x += w;
+      // theres an empty space at the end of the title text, therefore the -15
+	  drw_text(drw, x, 0, w + pad - 15 , th, pad / 2, c->name, 0);
+	  x += w + pad - 15;
 	  ++i;
 	}
 

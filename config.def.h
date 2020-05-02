@@ -26,6 +26,8 @@ static const char *fonts[]          = { "Ricty Discord:size=12.5" };
 enum showtab_modes { showtab_always, showtab_never, showtab_nmodes, showtab_auto};
 static const int showtab			= showtab_always;        /* Default tab bar show mode */
 static const int toptab				= False;                 /* False means bottom tab bar */
+static const int centertab			= True;
+static const int padtab             = 30;                    /* lR padding for tab windows */
 static const char dmenufont[]       = "monospace:size=10";
 static const char col_gray1[]       = "#222222";
 static const char col_gray2[]       = "#444444";
