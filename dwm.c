@@ -691,6 +691,8 @@ clientmessage(XEvent *e)
 			XAddToSaveSet(dpy, c->win);
 			XSelectInput(dpy, c->win, StructureNotifyMask | PropertyChangeMask | ResizeRedirectMask);
 			XReparentWindow(dpy, c->win, systray->win, 0, 0);
+            XClassHint ch = {"tray icon", "dwm"};
+            XSetClassHint(dpy, c->win, &ch);
 			/* use parents background color */
 			swa.background_pixel  = scheme[SchemeNorm][ColBg].pixel;
 			XChangeWindowAttributes(dpy, c->win, CWBackPixel, &swa);
@@ -2684,7 +2686,7 @@ updatebars(void)
 		.colormap = cmap,
 		.event_mask = ButtonPressMask|ExposureMask
 	};
-	XClassHint ch = {"dwm", "dwm"};
+	XClassHint ch = {"bar", "dwm"};
 	for (m = mons; m; m = m->next) {
 		if (!m->barwin) {
             w = m->ww;
@@ -2694,6 +2696,7 @@ updatebars(void)
                     InputOutput, visual,
                     CWOverrideRedirect|CWBackPixel|CWBorderPixel|CWColormap|CWEventMask, &wa);
             XDefineCursor(dpy, m->barwin, cursor[CurNormal]->cursor);
+            XSetClassHint(dpy, m->barwin, &ch);
             if (showsystray && m == systraytomon(m))
                 XMapRaised(dpy, systray->win);
             XMapRaised(dpy, m->barwin);
@@ -2702,7 +2705,7 @@ updatebars(void)
                     CWOverrideRedirect|CWBackPixel|CWBorderPixel|CWColormap|CWEventMask, &wa);
 		    XDefineCursor(dpy, m->tabwin, cursor[CurNormal]->cursor);
 		    XMapRaised(dpy, m->tabwin);
-            XSetClassHint(dpy, m->barwin, &ch);
+            XSetClassHint(dpy, m->tabwin, &ch);
         }
 	}
 }
