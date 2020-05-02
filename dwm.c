@@ -1053,7 +1053,7 @@ drawtab(Monitor *m) {
 	int x = 0;
 	int w = 0;
     int a = 0, s = 0;
-    int pad = 0;
+    int pad = padtab, space = 10;
 
 	// //view_info: indicate the tag which is displayed in the view
 	// for(i = 0; i < LENGTH(tags); ++i){
@@ -1088,13 +1088,13 @@ drawtab(Monitor *m) {
 	m->ntabs = 0;
 	for(c = m->clients; c; c = c->next){
 	  if(!ISVISIBLE(c)) continue;
-	  m->tab_widths[m->ntabs] = TEXTW(c->name);
-	  tot_width += m->tab_widths[m->ntabs];
+	  m->tab_widths[m->ntabs] = TEXTW(c->name) - space;
+	  tot_width += m->tab_widths[m->ntabs] + pad;
 	  ++m->ntabs;
 	  if(m->ntabs >= MAXTABS) break;
 	}
 
-	if(tot_width > m->ww){ //not enough space to display the labels, they need to be truncated
+	if(tot_width - (m->ntabs * pad) > m->ww){ // not enough space to display the labels (even without padding), they need to be truncated
 	  memcpy(sorted_label_widths, m->tab_widths, sizeof(int) * m->ntabs);
 	  qsort(sorted_label_widths, m->ntabs, sizeof(int), cmpint);
 	  tot_width = view_info_w;
@@ -1104,25 +1104,34 @@ drawtab(Monitor *m) {
 	    tot_width += sorted_label_widths[i];
 	  }
 	  maxsize = (m->ww - tot_width) / (m->ntabs - i);
+      pad = 0;
 	} else{
 	  maxsize = m->ww;
-      if (centertab) {
-        x = (m->ww - tot_width) / 2;
-        /* cleans interspace between edge of screen and window names */
-        drw_text(drw, 0, 0, x, th, 0, "", 0);
-        pad = padtab;
+      if(tot_width < m->ww){ // there is enough space, even with padding
+        if (centertab) {
+          x = (m->ww - tot_width) / 2;
+          if (x > view_info_w)
+          x += view_info_w / 2;
+          /* cleans interspace between edge of screen and window names */
+          drw_text(drw, 0, 0, x, th, 0, "", 0);
+        }
+      } else { // not enough space with padding, but enough space if it is removed
+        int text_width = tot_width - (m->ntabs * pad) - view_info_w;
+        pad = (m->ww - view_info_w - text_width) / m->ntabs;
+        tot_width = m->ww - view_info_w;
       }
 	}
 	i = 0;
 	for(c = m->clients; c; c = c->next){
 	  if(!ISVISIBLE(c)) continue;
 	  if(i >= m->ntabs) break;
+      m->tab_widths[i] += pad;
 	  if(m->tab_widths[i] >  maxsize) m->tab_widths[i] = maxsize;
 	  w = m->tab_widths[i];
 	  drw_setscheme(drw, scheme[(c == m->sel) ? SchemeSel : SchemeNorm]);
-      // theres an empty space at the end of the title text, therefore the -15
-	  drw_text(drw, x, 0, w + pad - 15 , th, pad / 2, c->name, 0);
-	  x += w + pad - 15;
+      // there is an empty space at the end of the title text, therefore we subtract a fixed value
+	  drw_text(drw, x, 0, w, th, pad / 2, c->name, 0);
+	  x += w;
 	  ++i;
 	}
 
