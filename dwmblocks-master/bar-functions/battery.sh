@@ -8,10 +8,10 @@ battery() {
 
     if [ "$battery" -lt 20 ]; then
         icon=""
-        charge_icon=" !!"
+        charge_icon=" \uea6c"
     elif [ "$battery" -lt 40 ]; then
         icon=""
-        charge_icon=" !"
+        charge_icon=" \uf06a"
     elif [ "$battery" -lt 50 ]; then
         icon=""
     elif [ "$battery" -lt 80 ]; then
@@ -26,7 +26,7 @@ battery() {
         charge_icon=" "
     fi
 
-    printf "%s" "$icon $battery$charge_icon"
+    printf "$icon $battery$charge_icon"
 }
 
 battery
