@@ -1,7 +1,7 @@
-#!/bin/sh
+#!/bin/bash
 
 day() {
-    mult=$(($(date '+%d') %10))
+    mult=$((10#$(date '+%d') %10))
     ending="th"
 
     case $mult in
