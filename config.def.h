@@ -37,9 +37,9 @@ static const char col_cyan[]        = "#005577";
 static const char col_red_bright[]  = "#BD335E";
 static const char col_red[]         = "#822B45";
 static const char col_purple_light[]= "#564c69";
-static const char col_purple_dark[] = "#42265E";
+static const char col_purple_dark[] = "#3C2454";
 static const unsigned int baralpha = 0xc3;      /* alpha range: 00 - ff */
-static const unsigned int baralphasel = 0xfc;
+static const unsigned int baralphasel = 0xfb;
 static const unsigned int borderalpha = 0x8f;
 static const char *colors[][4]      = {
 	/*               fg         bg                border            float border*/
