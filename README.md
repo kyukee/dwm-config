@@ -92,6 +92,11 @@ To push to repository, you might need --force.
 
     git push -u forked --all
 
+## Recompiling
+
+    make clean && rm config.h 
+    make && sudo make clean install
+    
 ## Other
 
 The suckdiff, suckmerge and suckrebase scripts were copied from <https://gitlab.com/uoou/dotfiles> and then changed to my liking.

@@ -79,23 +79,24 @@ static const Rule rules[] = {
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-	/* class                  instance    title       tags mask     isfloating   monitor    float x,y,w,h         floatborderpx*/
-	{ "Gimp",                 NULL,       NULL,       0,            1,           -1,        50,50,500,500,        8 },
-    { "firefox",              NULL,       NULL,       1 << 1,       0,           -1,        50,50,500,500,        8 },
-    { "code-oss",             NULL,       NULL,       1 << 2,       0,           -1,        50,50,500,500,        8 },
-    { "Thunar",               NULL,       NULL,       1 << 3,       0,           -1,        50,50,500,500,        8 },
-	{ "Subl3",                NULL,       NULL,       1 << 4,       0,           -1,        50,50,500,500,        8 },
-    { terminal,              "ncmpcpp",   NULL,       1 << 5,       0,           -1,        50,50,500,500,        8 },
-    { "mpv",                  NULL,       NULL,       1 << 6,       0,           -1,        50,50,500,500,        8 },
-    { "zoom",                 NULL,       NULL,       1 << 7,       0,           -1,        50,50,500,500,        8 },
+	/* class                       instance    title       tags mask     isfloating   monitor    float x,y,w,h         floatborderpx*/
+    { "Gimp",                      NULL,       NULL,       0,            1,           -1,        50,50,500,500,        8 },
+    { "firefox",                   NULL,       NULL,       1 << 1,       0,           -1,        50,50,500,500,        8 },
+    { "code-oss",                  NULL,       NULL,       1 << 2,       0,           -1,        50,50,500,500,        8 },
+    { "Thunar",                    NULL,       NULL,       1 << 3,       0,           -1,        50,50,500,500,        8 },
+    { "Subl3",                     NULL,       NULL,       1 << 4,       0,           -1,        50,50,500,500,        8 },
+    { terminal,                   "ncmpcpp",   NULL,       1 << 5,       0,           -1,        50,50,500,500,        8 },
+    { "mpv",                       NULL,       NULL,       1 << 6,       0,           -1,        50,50,500,500,        8 },
+    { "youtube-music-desktop-app", NULL,       NULL,       1 << 6,       0,           -1,        50,50,500,500,        8 },
+    { "zoom",                      NULL,       NULL,       1 << 7,       0,           -1,        50,50,500,500,        8 },
 
-    { "Ahoviewer",            NULL,       NULL,       0,            1,           -1,        50,50,500,500,        8 },
-    { "Hachoir-metadata-gtk", NULL,       NULL,       0,            1,           -1,        50,50,500,500,        8 },
-    { "Gcolor3",              NULL,       NULL,       0,            1,           -1,        50,50,500,500,        8 },
-    { "Gnome-calculator",     NULL,       NULL,       0,            1,           -1,        50,50,500,500,        8 },
-    { "Android Emulator",     NULL,       NULL,       0,            1,           -1,        50,50,500,500,        8 },
-    { "Blueberry.py",         NULL,       NULL,       0,            1,           -1,        50,50,500,500,        8 },
-    { "Zoom Group Chat",      NULL,       NULL,       0,            1,           -1,        50,50,500,500,        8 },
+    { "Ahoviewer",                 NULL,       NULL,       0,            1,           -1,        50,50,500,500,        8 },
+    { "Hachoir-metadata-gtk",      NULL,       NULL,       0,            1,           -1,        50,50,500,500,        8 },
+    { "Gcolor3",                   NULL,       NULL,       0,            1,           -1,        50,50,500,500,        8 },
+    { "Gnome-calculator",          NULL,       NULL,       0,            1,           -1,        50,50,500,500,        8 },
+    { "Android Emulator",          NULL,       NULL,       0,            1,           -1,        50,50,500,500,        8 },
+    { "Blueberry.py",              NULL,       NULL,       0,            1,           -1,        50,50,500,500,        8 },
+    { "Zoom Group Chat",           NULL,       NULL,       0,            1,           -1,        50,50,500,500,        8 },
 };
 
 /* layout(s) */
