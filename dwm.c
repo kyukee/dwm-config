@@ -333,6 +333,7 @@ static int sw, sh;           /* X display screen geometry width, height */
 static int bh, blw = 0;      /* bar geometry */
 static int enablegaps = 1;   /* enables gaps, used by togglegaps */
 static int th = 0;           /* tab bar geometry */
+static int tx = 0;           /* tab bar left margin */
 static int lrpad;            /* sum of left and right padding for text */
 static int (*xerrorxlib)(Display *, XErrorEvent *);
 static unsigned int numlockmask = 0;
@@ -562,7 +563,8 @@ buttonpress(XEvent *e)
 			click = ClkStatusText;
 	}
 	if(ev->window == selmon->tabwin) {
-		i = 0; x = 0;
+		i = 0;
+        x = tx;
 		for(c = selmon->clients; c; c = c->next){
 			if(!ISVISIBLE(c)) continue;
 			x += selmon->tab_widths[i];
@@ -1121,6 +1123,7 @@ drawtab(Monitor *m) {
         tot_width = m->ww - view_info_w;
       }
 	}
+    tx = x; // save x value in glogal variable
 	i = 0;
 	for(c = m->clients; c; c = c->next){
 	  if(!ISVISIBLE(c)) continue;
