@@ -51,6 +51,11 @@ static const unsigned int alphas[][3]      = {
 	[SchemeNorm] = { OPAQUE, baralpha   , borderalpha },
 	[SchemeSel]  = { OPAQUE, baralphasel, borderalpha },
 };
+static const unsigned int alphas[][3]      = {
+	/*               fg      bg        border     */
+	[SchemeNorm] = { OPAQUE, baralpha, borderalpha },
+	[SchemeSel]  = { OPAQUE, baralpha, borderalpha },
+};
 
 /* terminal emulator */
 static const char terminal[] = "kitty";
