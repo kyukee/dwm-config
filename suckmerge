@@ -8,7 +8,6 @@ excluded_branches=(
   "awesomebar"
   "extrabar"
   "hide-vacant-tags"
-  "status2d"
 )
 
 arrayContainsElement () {
