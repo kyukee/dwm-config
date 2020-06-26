@@ -86,8 +86,8 @@ static const Rule rules[] = {
     { "Thunar",                    NULL,       NULL,       1 << 3,       0,           -1,        50,50,500,500,        8 },
     { "Subl3",                     NULL,       NULL,       1 << 4,       0,           -1,        50,50,500,500,        8 },
     { terminal,                   "ncmpcpp",   NULL,       1 << 5,       0,           -1,        50,50,500,500,        8 },
+    { "youtube-music-desktop-app", NULL,       NULL,       1 << 5,       0,           -1,        50,50,500,500,        8 },
     { "mpv",                       NULL,       NULL,       1 << 6,       0,           -1,        50,50,500,500,        8 },
-    { "youtube-music-desktop-app", NULL,       NULL,       1 << 6,       0,           -1,        50,50,500,500,        8 },
     { "zoom",                      NULL,       NULL,       1 << 7,       0,           -1,        50,50,500,500,        8 },
 
     { "Ahoviewer",                 NULL,       NULL,       0,            1,           -1,        50,50,500,500,        8 },
