@@ -62,11 +62,11 @@ static const char *tags[] = {
     "2 \uebde", // browser (personal)
     "3 \uec24", // ide
     "4 \ue970", // file browser
-    "5 \uec47", // text editor
+    "5 \uf15c", // text editor
     "6 \uf001", // music
-    "7 \uec48", // videos
-    "8 \ue9dc", // communication
-    "9 \uec01"  // browser (work)
+    "7 \uf069", // misc
+    "8 \uf27a", // communication
+    "9 \uea2c"  // browser (work)
 };
 
 /* default layout per tags */
