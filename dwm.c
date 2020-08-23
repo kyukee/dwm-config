@@ -562,7 +562,7 @@ buttonpress(XEvent *e)
 		if (i < LENGTH(tags)) {
 			click = ClkTagBar;
 			arg.ui = 1 << i;
-		} else if (ev->x < x + blw)
+		} else if (ev->x < x + blw + layoutspace)
 			click = ClkLtSymbol;
 		else if (ev->x > selmon->ww - TEXTW(stext) - getsystraywidth())
 			click = ClkStatusText;
@@ -1110,7 +1110,9 @@ drawbar(Monitor *m)
 	}
 	w = blw = TEXTW(m->ltsymbol);
 	drw_setscheme(drw, scheme[SchemeNorm]);
-	x = drw_text(drw, x, 0, w, bh, lrpad / 2, m->ltsymbol, 0);
+	if (layoutspace > 0)
+		drw_text(drw, x, 0, layoutspace, bh, 0, "", 0);
+	x = drw_text(drw, x+layoutspace, 0, w, bh, lrpad / 2, m->ltsymbol, 0);
 
     tw = TEXTW(stext);
 	if ((w = m->ww - tw - stw - x) > bh) {

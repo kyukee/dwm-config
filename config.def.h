@@ -19,6 +19,7 @@ static const int topbar             = 1;        /* 0 means bottom bar */
 static const double defaultopacity  = 1;
 static const int horizpadbar        = 0;        /* horizontal padding for statusbar */
 static const int vertpadbar         = 4;        /* vertical padding for statusbar */
+static const int layoutspace        = 15;       /* distance between the tags and the layout icon */
 static const char *fonts[]          = { "Ricty Discord:size=12.5" };
 /*  Display modes of the tab bar: never shown, always shown, shown only in  */
 /*  monocle mode in the presence of several windows.                        */
@@ -71,7 +72,7 @@ static const char *tags[] = {
 /* default layout per tags */
 /* The first element is for all-tag view, following i-th element corresponds to */
 /* tags[i]. Layout is referred using the layouts array index.*/
-static int def_layouts[1 + LENGTH(tags)]  = { 4, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+static int def_layouts[1 + LENGTH(tags)]  = { 4, 0, 2, 0, 0, 0, 0, 0, 0, 0};
 
 /* tag assignment and floating rules */
 static const Rule rules[] = {
