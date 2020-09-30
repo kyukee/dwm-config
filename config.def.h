@@ -81,17 +81,21 @@ static const Rule rules[] = {
 	 *	WM_NAME(STRING) = title
 	 */
 	/* class                       instance    title       tags mask     isfloating   monitor    float x,y,w,h         floatborderpx*/
-    { "Gimp",                      NULL,       NULL,       0,            1,           -1,        50,50,500,500,        8 },
+
+	// tag assignment
     { "firefox",                   NULL,       NULL,       1 << 1,       0,           -1,        50,50,500,500,        8 },
     { "code-oss",                  NULL,       NULL,       1 << 2,       0,           -1,        50,50,500,500,        8 },
     { "Thunar",                    NULL,       NULL,       1 << 3,       0,           -1,        50,50,500,500,        8 },
     { "Subl3",                     NULL,       NULL,       1 << 4,       0,           -1,        50,50,500,500,        8 },
+	{ "Emacs",                     NULL,       NULL,       1 << 4,       0,           -1,        50,50,500,500,        8 },
     { terminal,                   "ncmpcpp",   NULL,       1 << 5,       0,           -1,        50,50,500,500,        8 },
     { "youtube-music-desktop-app", NULL,       NULL,       1 << 5,       0,           -1,        50,50,500,500,        8 },
     { "mpv",                       NULL,       NULL,       1 << 6,       0,           -1,        50,50,500,500,        8 },
     { "zoom",                      NULL,       NULL,       1 << 7,       0,           -1,        50,50,500,500,        8 },
 
-    { "Ahoviewer",                 NULL,       NULL,       0,            1,           -1,        50,50,500,500,        8 },
+	// floating rules
+    { "Gimp",                      NULL,       NULL,       0,            1,           -1,        50,50,500,1000,       8 },
+    { "Ahoviewer",                 NULL,       NULL,       0,            1,           -1,        50,50,1500,1000,      8 },
     { "Hachoir-metadata-gtk",      NULL,       NULL,       0,            1,           -1,        50,50,500,500,        8 },
     { "Gcolor3",                   NULL,       NULL,       0,            1,           -1,        50,50,500,500,        8 },
     { "Gnome-calculator",          NULL,       NULL,       0,            1,           -1,        50,50,500,500,        8 },
@@ -142,7 +146,7 @@ static const char *cmd_files[]  = { "thunar", NULL };
 static const char *cmd_files_terminal[]  = { terminal, "--name", "ranger", "-e", "ranger", NULL };
 static const char *cmd_music_terminal[]  = { terminal, "--name", "ncmpcpp", "-e", "ncmpcpp", NULL };
 static const char *cmd_browser[]  = { "firefox", NULL };
-static const char *cmd_text_editor[]  = { "subl3", NULL };
+static const char *cmd_text_editor[]  = { "emacs", NULL };
 static const char *cmd_ide[]  = { "code-oss", NULL };
 static const char *cmd_lock[]  = { "i3lock", "--blur=10", "--composite", "--clock", "--timecolor=ffffffff", "--timesize=90", "--datecolor=ffffffff", "--datesize=24", NULL };
 
@@ -204,6 +208,7 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
 	{ MODKEY,                       XK_f,      togglefullscr,  {0} },
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
+	{ MODKEY,                       XK_Tab,    view,           {.ui = ~0 } },
 	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
 	{ MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
 	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
