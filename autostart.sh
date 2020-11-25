@@ -27,6 +27,7 @@ dunst -c ~/.config/dunst/dunstrc &
 nm-applet &
 blueberry-tray &
 volumeicon &
+syncthing-gtk &
 yad --notification --command='gsimplecal' --image='/usr/share/icons/clarity-albus/16x16/apps/calendar.png' --text='yad notification - Calendar' &
 
 # update file index

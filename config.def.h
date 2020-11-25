@@ -154,7 +154,7 @@ static Key keys[] = {
 	/* modifier                     key        function        argument */
 	//{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
 	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
-    { MODKEY,                       XK_d,      spawn,          {.v = roficmd } },
+    { MODKEY,                       XK_space,  spawn,          {.v = roficmd } },
     { MODKEY|ShiftMask,             XK_d,      spawn,          {.v = cmd_rofi_refresh_files } },
     { MODKEY,                       XK_e,      spawn,          {.v = cmd_files } },
     { MODKEY|ShiftMask,             XK_e,      spawn,          {.v = cmd_files_terminal } },
@@ -166,7 +166,7 @@ static Key keys[] = {
 	{ MODKEY|ControlMask,           XK_s,      spawn,          SHCMD("transset-df -a --dec .1") },
 	{ MODKEY|ControlMask,           XK_d,      spawn,          SHCMD("transset-df -a --inc .1") },
 	{ MODKEY|ControlMask,           XK_f,      spawn,          SHCMD("transset-df -a .75") },
-	{ MODKEY|ShiftMask,             XK_Return, togglescratch,  {.v = scratchpadcmd } },
+	{ MODKEY|ControlMask,           XK_Return, togglescratch,  {.v = scratchpadcmd } },
 	{ MODKEY|ShiftMask,             XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_w,      tabmode,        {-1} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
@@ -175,7 +175,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_minus,  incnmaster,     {.i = -1 } },
 	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
-	{ MODKEY,                       XK_space,  zoom,           {0} },
+	{ MODKEY|ShiftMask,             XK_Return, zoom,           {0} },
 	{ Mod1Mask,                     XK_Tab,    view,           {0} },
 	{ MODKEY|ShiftMask,             XK_q,      killclient,     {0} },
     { MODKEY|ShiftMask,             XK_j,      pushdown,       {0} },
@@ -199,7 +199,6 @@ static Key keys[] = {
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
 	//{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
-	//{ MODKEY,                       XK_space,  setlayout,      {0} },
 	{ MODKEY,                       XK_Left,   cyclelayout,    {.i = -1 } },
 	{ MODKEY,                       XK_Right,  cyclelayout,    {.i = +1 } },
 	{ MODKEY,                       XK_c,      setlayout,      {.v = &layouts[3]} },
@@ -247,4 +246,3 @@ static Button buttons[] = {
 	{ ClkTagBar,            MODKEY,         Button3,        toggletag,      {0} },
 	{ ClkTabBar,            0,              Button1,        focuswin,       {0} },
 };
-
