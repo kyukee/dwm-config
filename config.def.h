@@ -5,6 +5,7 @@ static const unsigned int borderpx  = 1;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
+static const char *def_tab_icon     = "\uf111";      /* default tab icon*/
 static const char *fonts[]          = { "monospace:size=10" };
 static const char dmenufont[]       = "monospace:size=10";
 static const char col_gray1[]       = "#222222";
@@ -12,10 +13,11 @@ static const char col_gray2[]       = "#444444";
 static const char col_gray3[]       = "#bbbbbb";
 static const char col_gray4[]       = "#eeeeee";
 static const char col_cyan[]        = "#005577";
-static const char *colors[][3]      = {
-	/*               fg         bg         border   */
-	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
-	[SchemeSel]  = { col_gray4, col_cyan,  col_cyan  },
+static const char col_yellow[]      = "#dbdb30";
+static const char *colors[][4]      = {
+	/*               fg         bg         border     icon fg   */
+	[SchemeNorm] = { col_gray3, col_gray1, col_gray2, col_yellow },
+	[SchemeSel]  = { col_gray4, col_cyan,  col_cyan,  col_yellow },
 };
 
 /* tagging */
@@ -26,9 +28,9 @@ static const Rule rules[] = {
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-	/* class      instance    title       tags mask     isfloating   monitor */
-	{ "Gimp",     NULL,       NULL,       0,            1,           -1 },
-	{ "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 },
+	/* class      instance    title      tab icon       tags mask     isfloating   monitor */
+	{ "st",       NULL,       NULL,      "\uf120",      0,            1,           -1 },
+	{ "Thunar",   NULL,       NULL,      "\uf15c",      1 << 8,       0,           -1 },
 };
 
 /* layout(s) */
@@ -112,4 +114,3 @@ static Button buttons[] = {
 	{ ClkTagBar,            MODKEY,         Button1,        tag,            {0} },
 	{ ClkTagBar,            MODKEY,         Button3,        toggletag,      {0} },
 };
-

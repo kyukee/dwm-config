@@ -86,6 +86,7 @@ typedef struct Monitor Monitor;
 typedef struct Client Client;
 struct Client {
 	char name[256];
+	char tab_icon[16];
 	float mina, maxa;
 	int x, y, w, h;
 	int oldx, oldy, oldw, oldh;
@@ -136,6 +137,7 @@ typedef struct {
 	const char *class;
 	const char *instance;
 	const char *title;
+	const char *tab_icon;
 	unsigned int tags;
 	int isfloating;
 	int monitor;
@@ -288,6 +290,7 @@ applyrules(Client *c)
 	/* rule matching */
 	c->isfloating = 0;
 	c->tags = 0;
+	strcpy(c->tab_icon, def_tab_icon);
 	XGetClassHint(dpy, c->win, &ch);
 	class    = ch.res_class ? ch.res_class : broken;
 	instance = ch.res_name  ? ch.res_name  : broken;
@@ -300,6 +303,7 @@ applyrules(Client *c)
 		{
 			c->isfloating = r->isfloating;
 			c->tags |= r->tags;
+			strcpy(c->tab_icon, r->tab_icon);
 			for (m = mons; m && m->num != r->monitor; m = m->next);
 			if (m)
 				c->mon = m;
@@ -731,8 +735,16 @@ drawbar(Monitor *m)
 
 	if ((w = m->ww - tw - x) > bh) {
 		if (m->sel) {
-			drw_setscheme(drw, scheme[m == selmon ? SchemeSel : SchemeNorm]);
-			drw_text(drw, x, 0, w, bh, lrpad / 2, m->sel->name, 0);
+			char *icon = m->sel->tab_icon;
+			int icon_w = TEXTW(icon);
+			int curr_scheme = (m == selmon ? SchemeSel : SchemeNorm);
+
+			drw_setscheme(drw, scheme[curr_scheme]);
+			drw_clr_create(drw, &drw->scheme[ColFg], colors[curr_scheme][ColIcon]);
+			drw_text(drw, x, 0, icon_w, bh, lrpad / 2, icon, 0);
+
+			drw_clr_create(drw, &drw->scheme[ColFg], colors[curr_scheme][ColFg]);
+			drw_text(drw, x+icon_w, 0, w, bh, 0, m->sel->name, 0);
 			if (m->sel->isfloating)
 				drw_rect(drw, x + boxs, boxs, boxw, boxw, m->sel->isfixed, 0);
 		} else {
@@ -1570,7 +1582,7 @@ setup(void)
 	/* init appearance */
 	scheme = ecalloc(LENGTH(colors), sizeof(Clr *));
 	for (i = 0; i < LENGTH(colors); i++)
-		scheme[i] = drw_scm_create(drw, colors[i], 3);
+		scheme[i] = drw_scm_create(drw, colors[i], 4);
 	/* init bars */
 	updatebars();
 	updatestatus();
