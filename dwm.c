@@ -380,12 +380,12 @@ static Colormap cmap;
 #include "config.h"
 
 struct Pertag {
-	unsigned int curtag, prevtag; /* current and previous tag */
-	int nmasters[LENGTH(tags) + 1]; /* number of windows in master area */
-	float mfacts[LENGTH(tags) + 1]; /* mfacts per tag */
-	unsigned int sellts[LENGTH(tags) + 1]; /* selected layouts */
+	unsigned int curtag, prevtag;              /* current and previous tag */
+	int nmasters[LENGTH(tags) + 1];            /* number of windows in master area */
+	float mfacts[LENGTH(tags) + 1];            /* mfacts per tag */
+	unsigned int sellts[LENGTH(tags) + 1];     /* selected layouts */
 	const Layout *ltidxs[LENGTH(tags) + 1][2]; /* matrix of tags and layouts indexes  */
-	int showbars[LENGTH(tags) + 1]; /* display bar for the current tag */
+	int showbars[LENGTH(tags) + 1];            /* display bar for the current tag */
 };
 
 static unsigned int scratchtag = 1 << LENGTH(tags);
@@ -421,7 +421,7 @@ applyrules(Client *c)
 			c->tags |= r->tags;
 			c->floatborderpx = r->floatborderpx;
 			if(r->tab_icon)
-              strcpy(c->tab_icon, r->tab_icon);
+				strcpy(c->tab_icon, r->tab_icon);
 			if (r->isfloating) {
 				c->x = r->floatx;
 				c->y = r->floaty;
@@ -1107,10 +1107,9 @@ drawbar(Monitor *m)
 		drw_text(drw, x, 0, w, bh, lrpad / 2, tags[i], urg & 1 << i);
 		if (occ & 1 << i)
 			drw_rect(drw, x + boxw, 0, w - ( 2 * boxw + 1), boxw - 3,
-			    // m == selmon && selmon->sel && selmon->sel->tags & 1 << i,
-                1,
-			    urg & 1 << i);
-
+				// use "m == selmon && selmon->sel && selmon->sel->tags & 1 << i," instead of 1
+				// for multi monitor with a single selected bar (this argument controls rect fill)
+				1, urg & 1 << i);
 		x += w;
 	}
 	w = blw = TEXTW(m->ltsymbol);
@@ -1119,16 +1118,16 @@ drawbar(Monitor *m)
 		drw_text(drw, x, 0, layoutspace, bh, 0, "", 0);
 	x = drw_text(drw, x+layoutspace, 0, w, bh, lrpad / 2, m->ltsymbol, 0);
 
-    tw = TEXTW(stext);
+	tw = TEXTW(stext);
 	if ((w = m->ww - tw - stw - x) > bh) {
-        drw_setscheme(drw, scheme[SchemeNorm]);
-        drw_rect(drw, x, 0, w+tw, bh, 1, 1);
+		drw_setscheme(drw, scheme[SchemeNorm]);
+		drw_rect(drw, x, 0, w+tw, bh, 1, 1);
 	}
 
-    if (m == selmon) { /* status is only drawn on selected monitor */
-        // int mid = (m->ww - tw) / 2;
+	if (m == selmon) { /* status is only drawn on selected monitor */
+		// int mid = (m->ww - tw) / 2;
 		// drw_text(drw, mid - lrpad / 2, 0, tw, bh, lrpad / 2, stext, 0);
-        drawstatusbar(m, bh, stext);
+		drawstatusbar(m, bh, stext);
 	}
 
 	drw_map(drw, m->barwin, 0, 0, m->ww - stw, bh);
@@ -1163,10 +1162,10 @@ drawtabs(void) {
 
 static int
 cmpint(const void *p1, const void *p2) {
-  /* The actual arguments to this function are "pointers to
-     pointers to char", but strcmp(3) arguments are "pointers
-     to char", hence the following cast plus dereference */
-  return *((int*) p1) > * (int*) p2;
+	/* The actual arguments to this function are "pointers to
+	   pointers to char", but strcmp(3) arguments are "pointers
+	   to char", hence the following cast plus dereference */
+	return *((int*) p1) > * (int*) p2;
 }
 
 
@@ -1181,8 +1180,8 @@ drawtab(Monitor *m) {
 	int maxsize = bh;
 	int x = 0;
 	int w = 0;
-    int a = 0, s = 0;
-    int pad = padtab, space = 10;
+	int a = 0, s = 0;
+	int pad = padtab, space = 10;
 	// int itag = -1;
 
 	// //view_info: indicate the tag which is displayed in the view
@@ -1202,13 +1201,13 @@ drawtab(Monitor *m) {
 	//   strncpy(view_info, "[...]", sizeof view_info);
 	// }
 
-    // indicate the current selected client number from the stack
-    for(c= nexttiled(m->clients), a= 0, s= 0; c; c= nexttiled(c->next), a++)
-        if(c == m->stack)
-            s= a+1;
-    if(!s && a)
-        s= 1;
-    snprintf(view_info, sizeof view_info, "[%d/%d]",  s, a);
+	// indicate the current selected client number from the stack
+	for(c= nexttiled(m->clients), a= 0, s= 0; c; c= nexttiled(c->next), a++)
+		if(c == m->stack)
+			s= a+1;
+	if(!s && a)
+		s= 1;
+	snprintf(view_info, sizeof view_info, "[%d/%d]",  s, a);
 
 	view_info[sizeof(view_info) - 1 ] = 0;
 	view_info_w = TEXTW(view_info);
@@ -1217,53 +1216,52 @@ drawtab(Monitor *m) {
 	/* Calculates number of labels and their width */
 	m->ntabs = 0;
 	for(c = m->clients; c; c = c->next){
-	  if(!ISVISIBLE(c)) continue;
-	  m->tab_widths[m->ntabs] = TEXTW(c->name) + TEXTW(c->tab_icon) - space;
-	  tot_width += m->tab_widths[m->ntabs] + pad;
-	  ++m->ntabs;
-	  if(m->ntabs >= MAXTABS) break;
+		if(!ISVISIBLE(c)) continue;
+		m->tab_widths[m->ntabs] = TEXTW(c->name) + TEXTW(c->tab_icon) - space;
+		tot_width += m->tab_widths[m->ntabs] + pad;
+		++m->ntabs;
+		if(m->ntabs >= MAXTABS) break;
 	}
 
 	if(tot_width - (m->ntabs * pad) > m->ww){ // not enough space to display the labels (even without padding), they need to be truncated
-	  memcpy(sorted_label_widths, m->tab_widths, sizeof(int) * m->ntabs);
-	  qsort(sorted_label_widths, m->ntabs, sizeof(int), cmpint);
-	  tot_width = view_info_w;
-	  for(i = 0; i < m->ntabs; ++i){
-	    if(tot_width + (m->ntabs - i) * sorted_label_widths[i] > m->ww)
-	      break;
-	    tot_width += sorted_label_widths[i];
-	  }
-	  maxsize = (m->ww - tot_width) / (m->ntabs - i);
-      pad = 0;
-	} else{
-	  maxsize = m->ww;
-      if(tot_width < m->ww){ // there is enough space, even with padding
-        if (centertab) {
-          x = (m->ww - tot_width) / 2;
-          if (x > view_info_w)
-          x += view_info_w / 2;
-          /* cleans interspace between edge of screen and window names */
-          drw_text(drw, 0, 0, x, th, 0, "", 0);
-        }
-      } else { // not enough space with padding, but enough space if it is removed
-        int text_width = tot_width - (m->ntabs * pad) - view_info_w;
-        pad = (m->ww - view_info_w - text_width) / m->ntabs;
-        tot_width = m->ww - view_info_w;
-      }
+		memcpy(sorted_label_widths, m->tab_widths, sizeof(int) * m->ntabs);
+		qsort(sorted_label_widths, m->ntabs, sizeof(int), cmpint);
+		tot_width = view_info_w;
+		for(i = 0; i < m->ntabs; ++i){
+			if(tot_width + (m->ntabs - i) * sorted_label_widths[i] > m->ww)
+				break;
+			tot_width += sorted_label_widths[i];
+		}
+		maxsize = (m->ww - tot_width) / (m->ntabs - i);
+		pad = 0;
+	} else {
+		maxsize = m->ww;
+		if(tot_width < m->ww) { // there is enough space, even with padding
+			if (centertab) {
+				x = (m->ww - tot_width) / 2;
+				if (x > view_info_w)
+					x += view_info_w / 2;
+				/* cleans interspace between edge of screen and window names */
+				drw_text(drw, 0, 0, x, th, 0, "", 0);
+			}
+		} else { // not enough space with padding, but enough space if it is removed
+			int text_width = tot_width - (m->ntabs * pad) - view_info_w;
+			pad = (m->ww - view_info_w - text_width) / m->ntabs;
+			tot_width = m->ww - view_info_w;
+		}
 	}
-    tx = x; // save x value in glogal variable
+	tx = x; // save x value in glogal variable
 	i = 0;
-	for(c = m->clients; c; c = c->next){
-	  if(!ISVISIBLE(c)) continue;
-	  if(i >= m->ntabs) break;
-      m->tab_widths[i] += pad;
-	  if(m->tab_widths[i] >  maxsize) m->tab_widths[i] = maxsize;
+	for(c = m->clients; c; c = c->next) {
+		if(!ISVISIBLE(c)) continue;
+		if(i >= m->ntabs) break;
+		m->tab_widths[i] += pad;
+		if(m->tab_widths[i] >  maxsize) m->tab_widths[i] = maxsize;
+
 		char *icon = c->tab_icon;
 		int icon_w = TEXTW(icon);
 		int curr_scheme = (c == m->sel ? SchemeSel : SchemeNorm);
-
 		w = m->tab_widths[i];
-
 		drw_setscheme(drw, scheme[curr_scheme]);
 
 		drw_clr_create(drw, &drw->scheme[ColFg], colors[curr_scheme][ColIcon], OPAQUE);
@@ -1272,8 +1270,8 @@ drawtab(Monitor *m) {
 		drw_clr_create(drw, &drw->scheme[ColFg], colors[curr_scheme][ColFg], OPAQUE);
 		drw_text(drw, x+icon_w+(pad/2), 0, w-icon_w, th, pad/10, c->name, 0);
 
-	  x += w;
-	  ++i;
+		x += w;
+		++i;
 	}
 
 	drw_setscheme(drw, scheme[SchemeNorm]);
@@ -1971,12 +1969,12 @@ resizeclient(Client *c, int x, int y, int w, int h)
             wc.border_width = borderpx;
         else
 		    wc.border_width = c->floatborderpx;
-    }
+	}
 	else
 		wc.border_width = c->bw;
 	if (((nexttiled(c->mon->clients) == c && !nexttiled(c->next))
-	    || &monocle == c->mon->lt[c->mon->sellt]->arrange)
-	    && !c->isfullscreen && !c->isfloating) {
+			|| &monocle == c->mon->lt[c->mon->sellt]->arrange)
+			&& !c->isfullscreen && !c->isfloating) {
 		c->w = wc.width += c->bw * 2;
 		c->h = wc.height += c->bw * 2;
 		wc.border_width = 0;
@@ -2007,13 +2005,13 @@ resizemouse(const Arg *arg)
 	restack(selmon);
 	ocx = c->x;
 	ocy = c->y;
-    ocx2 = c->x + c->w;
+	ocx2 = c->x + c->w;
 	ocy2 = c->y + c->h;
 	if (XGrabPointer(dpy, root, False, MOUSEMASK, GrabModeAsync, GrabModeAsync,
 		None, cursor[CurResize]->cursor, CurrentTime) != GrabSuccess)
 		return;
 	if (!XQueryPointer (dpy, c->win, &dummy, &dummy, &di, &di, &nx, &ny, &dui))
-	       return;
+		return;
 	horizcorner = nx < c->w / 2;
 	vertcorner = ny < c->h / 2;
 	XWarpPointer (dpy, None, c->win, 0, 0, 0, 0,
@@ -2155,7 +2153,7 @@ sendmon(Client *c, Monitor *m)
 	detachstack(c);
 	c->mon = m;
 	c->tags = m->tagset[m->seltags]; /* assign tags of target monitor */
-    updateclientdesktop(c);
+	updateclientdesktop(c);
 	attach(c);
 	attachstack(c);
 	focus(NULL);
@@ -2440,7 +2438,7 @@ setup(void)
 		die("no fonts could be loaded.");
 	lrpad = drw->fonts->h + horizpadbar;
 	bh = drw->fonts->h + vertpadbar;
-    th = bh;
+	th = bh;
 	updategeom();
 	/* init atoms */
 	utf8string = XInternAtom(dpy, "UTF8_STRING", False);
@@ -2467,7 +2465,7 @@ setup(void)
 	netatom[NetNumberOfDesktops] = XInternAtom(dpy, "_NET_NUMBER_OF_DESKTOPS", False);
 	netatom[NetCurrentDesktop] = XInternAtom(dpy, "_NET_CURRENT_DESKTOP", False);
 	netatom[NetDesktopNames] = XInternAtom(dpy, "_NET_DESKTOP_NAMES", False);
-    netatom[NetWMDesktop] = XInternAtom(dpy, "_NET_WM_DESKTOP", False);
+	netatom[NetWMDesktop] = XInternAtom(dpy, "_NET_WM_DESKTOP", False);
 	xatom[Manager] = XInternAtom(dpy, "MANAGER", False);
 	xatom[Xembed] = XInternAtom(dpy, "_XEMBED", False);
 	xatom[XembedInfo] = XInternAtom(dpy, "_XEMBED_INFO", False);
@@ -2594,7 +2592,7 @@ tag(const Arg *arg)
 {
 	if (selmon->sel && arg->ui & TAGMASK) {
 		selmon->sel->tags = arg->ui & TAGMASK;
-        updateclientdesktop(selmon->sel);
+		updateclientdesktop(selmon->sel);
 		focus(NULL);
 		arrange(selmon);
 	}
@@ -2631,13 +2629,13 @@ tile(Monitor *m)
 			r = MIN(n, m->nmaster) - i;
 			h = (m->wh - my - m->gappoh*oe - m->gappih*ie * (r - 1)) / r;
 			resize(c, m->wx + m->gappov*oe, m->wy + my, mw - (2*c->bw) - m->gappiv*ie, h - (2*c->bw), 0);
-            if (my + HEIGHT(c) < m->wh)
+			if (my + HEIGHT(c) < m->wh)
 			    my += HEIGHT(c) + m->gappih*ie;
 		} else {
 			r = n - i;
 			h = (m->wh - ty - m->gappoh*oe - m->gappih*ie * (r - 1)) / r;
 			resize(c, m->wx + mw + m->gappov*oe, m->wy + ty, m->ww - mw - (2*c->bw) - 2*m->gappov*oe, h - (2*c->bw), 0);
-            if (ty + HEIGHT(c) < m->wh)
+			if (ty + HEIGHT(c) < m->wh)
 			    ty += HEIGHT(c) + m->gappih*ie;
 		}
 }
@@ -2693,8 +2691,8 @@ togglefloating(const Arg *arg)
 void
 togglefullscr(const Arg *arg)
 {
-  if(selmon->sel)
-    setfullscreen(selmon->sel, !selmon->sel->isfullscreen);
+	if(selmon->sel)
+		setfullscreen(selmon->sel, !selmon->sel->isfullscreen);
 }
 
 void
@@ -2851,24 +2849,24 @@ updatebars(void)
 	XClassHint ch = {"bar", "dwm"};
 	for (m = mons; m; m = m->next) {
 		if (!m->barwin) {
-            w = m->ww;
-            if (showsystray && m == systraytomon(m))
-                w -= getsystraywidth();
-            m->barwin = XCreateWindow(dpy, root, m->wx, m->by, w, bh, 0, depth,
-                    InputOutput, visual,
-                    CWOverrideRedirect|CWBackPixel|CWBorderPixel|CWColormap|CWEventMask, &wa);
-            XDefineCursor(dpy, m->barwin, cursor[CurNormal]->cursor);
-            if (showsystray && m == systraytomon(m))
-                XMapRaised(dpy, systray->win);
-            XMapRaised(dpy, m->barwin);
-            XSetClassHint(dpy, m->barwin, &ch);
-            m->tabwin = XCreateWindow(dpy, root, m->wx, m->ty, w, th, 0, depth,
-                    InputOutput, visual,
-                    CWOverrideRedirect|CWBackPixel|CWBorderPixel|CWColormap|CWEventMask, &wa);
-		    XDefineCursor(dpy, m->tabwin, cursor[CurNormal]->cursor);
-		    XMapRaised(dpy, m->tabwin);
-            XSetClassHint(dpy, m->tabwin, &ch);
-        }
+			w = m->ww;
+			if (showsystray && m == systraytomon(m))
+				w -= getsystraywidth();
+			m->barwin = XCreateWindow(dpy, root, m->wx, m->by, w, bh, 0, depth,
+				        InputOutput, visual,
+				        CWOverrideRedirect|CWBackPixel|CWBorderPixel|CWColormap|CWEventMask, &wa);
+			XDefineCursor(dpy, m->barwin, cursor[CurNormal]->cursor);
+			if (showsystray && m == systraytomon(m))
+				XMapRaised(dpy, systray->win);
+			XMapRaised(dpy, m->barwin);
+			XSetClassHint(dpy, m->barwin, &ch);
+			m->tabwin = XCreateWindow(dpy, root, m->wx, m->ty, w, th, 0, depth,
+				        InputOutput, visual,
+				        CWOverrideRedirect|CWBackPixel|CWBorderPixel|CWColormap|CWEventMask, &wa);
+			XDefineCursor(dpy, m->tabwin, cursor[CurNormal]->cursor);
+			XMapRaised(dpy, m->tabwin);
+			XSetClassHint(dpy, m->tabwin, &ch);
+		}
 	}
 }
 
@@ -3472,7 +3470,7 @@ main(int argc, char *argv[])
 		die("pledge");
 #endif /* __OpenBSD__ */
 	scan();
-    runAutostart();
+	runAutostart();
 	run();
 	if(restart) execvp(argv[0], argv);
 	cleanup();

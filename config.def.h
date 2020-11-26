@@ -3,33 +3,33 @@
 #include "tcl.c"
 
 /* appearance */
-static const unsigned int borderpx  = 5;        /* border pixel of windows */
-static const unsigned int snap      = 32;       /* snap pixel */
-static const unsigned int systraypinning = 0;   /* 0: sloppy systray follows selected monitor, >0: pin systray to monitor X */
-static const unsigned int systrayspacing = 6;   /* systray spacing */
-static const int systraypinningfailfirst = 1;   /* 1: if pinning fails, display systray on the first monitor, False: display systray on the last monitor*/
-static const int showsystray        = 1;        /* 0 means no systray */
-static const unsigned int gappih    = 10;       /* horiz inner gap between windows */
-static const unsigned int gappiv    = 10;       /* vert inner gap between windows */
-static const unsigned int gappoh    = 10;       /* horiz outer gap between windows and screen edge */
-static const unsigned int gappov    = 10;       /* vert outer gap between windows and screen edge */
-static const int smartgaps          = 1;        /* 1 means no outer gap when there is only one window */
-static const int showbar            = 1;        /* 0 means no bar */
-static const int topbar             = 1;        /* 0 means bottom bar */
+static const unsigned int borderpx  = 5;            /* border pixel of windows */
+static const unsigned int snap      = 32;           /* snap pixel */
+static const unsigned int systraypinning = 0;       /* 0: sloppy systray follows selected monitor, >0: pin systray to monitor X */
+static const unsigned int systrayspacing = 6;       /* systray spacing */
+static const int systraypinningfailfirst = 1;       /* 1: if pinning fails, display systray on the first monitor, False: display systray on the last monitor*/
+static const int showsystray        = 1;            /* 0 means no systray */
+static const unsigned int gappih    = 10;           /* horiz inner gap between windows */
+static const unsigned int gappiv    = 10;           /* vert inner gap between windows */
+static const unsigned int gappoh    = 10;           /* horiz outer gap between windows and screen edge */
+static const unsigned int gappov    = 10;           /* vert outer gap between windows and screen edge */
+static const int smartgaps          = 1;            /* 1 means no outer gap when there is only one window */
+static const int showbar            = 1;            /* 0 means no bar */
+static const int topbar             = 1;            /* 0 means bottom bar */
 static const double defaultopacity  = 1;
-static const int horizpadbar        = 0;        /* horizontal padding for statusbar */
-static const int vertpadbar         = 4;        /* vertical padding for statusbar */
-static const int layoutspace        = 15;       /* distance between the tags and the layout icon */
+static const int horizpadbar        = 0;            /* horizontal padding for statusbar */
+static const int vertpadbar         = 4;            /* vertical padding for statusbar */
+static const int layoutspace        = 15;           /* distance between the tags and the layout icon */
 static const char *fonts[]          = { "Ricty Discord:size=12.5" };
 /*  Display modes of the tab bar: never shown, always shown, shown only in  */
 /*  monocle mode in the presence of several windows.                        */
 /*  Modes after showtab_nmodes are disabled.                                */
 enum showtab_modes { showtab_always, showtab_never, showtab_nmodes, showtab_auto};
-static const int showtab			= showtab_always;        /* Default tab bar show mode */
-static const int toptab				= False;                 /* False means bottom tab bar */
-static const int centertab			= True;
-static const int padtab             = 60;                    /* lR padding for tab windows */ // 30
-static const char *def_tab_icon     = "\uf111";      /* default tab icon*/
+static const int showtab            = showtab_always;       /* Default tab bar show mode */
+static const int toptab             = False;                /* False means bottom tab bar */
+static const int centertab          = True;
+static const int padtab             = 60;                   /* lR padding for tab windows */ // 30
+static const char *def_tab_icon     = "\uf111";             /* default tab icon*/
 static const char dmenufont[]       = "monospace:size=10";
 static const char col_gray1[]       = "#222222";
 static const char col_gray2[]       = "#444444";
@@ -41,7 +41,7 @@ static const char col_red[]         = "#822B45";
 static const char col_purple_light[]= "#564c69";
 static const char col_purple_dark[] = "#3C2454";
 static const char col_yellow[]      = "#a3a337";
-static const unsigned int baralpha = 0xc3;      /* alpha range: 00 - ff */
+static const unsigned int baralpha = 0xc3;          /* alpha range: 00 - ff */
 static const unsigned int baralphasel = 0xfb;
 static const unsigned int borderalpha = 0x8f;
 static const char *colors[][5]      = {
@@ -60,51 +60,21 @@ static const char terminal[] = "kitty";
 
 /* tagging */
 static const char *tags[] = {
-    "1 \uecc8", // terminal
-    "2 \uebde", // browser (personal)
-    "3 \uec24", // ide
-    "4 \ue970", // file browser
-    "5 \uf15c", // text editor
-    "6 \uf001", // music
-    "7 \uf069", // misc
-    "8 \uf27a", // communication
-    "9 \uea2c"  // browser (work)
+	"1 \uecc8",   /* terminal */
+	"2 \uebde",   /* browser (personal) */
+	"3 \uec24",   /* ide */
+	"4 \ue970",   /* file browser */
+	"5 \uf15c",   /* text editor */
+	"6 \uf001",   /* music */
+	"7 \uf069",   /* misc */
+	"8 \uf27a",   /* communication */
+	"9 \uea2c"    /* browser (work) */
 };
 
 /* default layout per tags */
 /* The first element is for all-tag view, following i-th element corresponds to */
 /* tags[i]. Layout is referred using the layouts array index.*/
 static int def_layouts[1 + LENGTH(tags)]  = { 4, 0, 2, 0, 0, 0, 0, 0, 0, 0};
-
-/* tag assignment and floating rules */
-static const Rule rules[] = {
-	/* xprop(1):
-	 *	WM_CLASS(STRING) = instance, class
-	 *	WM_NAME(STRING) = title
-	 */
-	/* class                       instance    title      tab icon       tags mask     isfloating   monitor    float x,y,w,h         floatborderpx*/
-
-	// tag assignment
-    { "firefox",                   NULL,       NULL,      "\uf269",      1 << 1,       0,           -1,        50,50,500,500,        8 },
-    { "code-oss",                  NULL,       NULL,      NULL,          1 << 2,       0,           -1,        50,50,500,500,        8 },
-    { "Thunar",                    NULL,       NULL,      NULL,          1 << 3,       0,           -1,        50,50,500,500,        8 },
-	{ "Emacs",                     NULL,       NULL,      "\uf1b2",      1 << 4,       0,           -1,        50,50,500,500,        8 },
-    { "Subl3",                     NULL,       NULL,      NULL,          1 << 4,       0,           -1,        50,50,500,500,        8 },
-    { terminal,                   "ncmpcpp",   NULL,      NULL,          1 << 5,       0,           -1,        50,50,500,500,        8 },
-    { "youtube-music-desktop-app", NULL,       NULL,      NULL,          1 << 5,       0,           -1,        50,50,500,500,        8 },
-    { "mpv",                       NULL,       NULL,      NULL,          1 << 6,       0,           -1,        50,50,500,500,        8 },
-    { "zoom",                      NULL,       NULL,      NULL,          1 << 7,       0,           -1,        50,50,500,500,        8 },
-
-	// floating rules
-    { "Gimp",                      NULL,       NULL,      NULL,          0,            1,           -1,        50,50,500,1000,       8 },
-    { "Ahoviewer",                 NULL,       NULL,      NULL,          0,            1,           -1,        50,50,1500,1000,      8 },
-    { "Hachoir-metadata-gtk",      NULL,       NULL,      NULL,          0,            1,           -1,        50,50,500,500,        8 },
-    { "Gcolor3",                   NULL,       NULL,      NULL,          0,            1,           -1,        50,50,500,500,        8 },
-    { "Gnome-calculator",          NULL,       NULL,      NULL,          0,            1,           -1,        50,50,500,500,        8 },
-    { "Android Emulator",          NULL,       NULL,      NULL,          0,            1,           -1,        50,50,500,500,        8 },
-    { "Blueberry.py",              NULL,       NULL,      NULL,          0,            1,           -1,        50,50,500,500,        8 },
-    { "Zoom Group Chat",           NULL,       NULL,      NULL,          0,            1,           -1,        50,50,500,500,        8 },
-};
 
 /* layout(s) */
 static const float mfact     = 0.6; /* factor of master area size [0.05..0.95] */
@@ -121,6 +91,36 @@ static const Layout layouts[] = {
 	{ "G \uf00a",     grid },
 	{ "C \uea99",     tcl },
 	{ NULL,           NULL },
+};
+
+/* tag assignment and floating rules */
+static const Rule rules[] = {
+	/* xprop(1):
+	 *  WM_CLASS(STRING) = instance, class
+	 *  WM_NAME(STRING) = title
+	 */
+	/* class                       instance    title      tab icon       tags mask     isfloating   monitor    float x,y,w,h         floatborderpx*/
+
+	// tag assignment
+	{ "firefox",                   NULL,       NULL,      "\uf269",      1 << 1,       0,           -1,        50,50,500,500,        8 },
+	{ "code-oss",                  NULL,       NULL,      NULL,          1 << 2,       0,           -1,        50,50,500,500,        8 },
+	{ "Thunar",                    NULL,       NULL,      NULL,          1 << 3,       0,           -1,        50,50,500,500,        8 },
+	{ "Emacs",                     NULL,       NULL,      "\uf1b2",      1 << 4,       0,           -1,        50,50,500,500,        8 },
+	{ "Subl3",                     NULL,       NULL,      NULL,          1 << 4,       0,           -1,        50,50,500,500,        8 },
+	{ terminal,                   "ncmpcpp",   NULL,      NULL,          1 << 5,       0,           -1,        50,50,500,500,        8 },
+	{ "youtube-music-desktop-app", NULL,       NULL,      NULL,          1 << 5,       0,           -1,        50,50,500,500,        8 },
+	{ "mpv",                       NULL,       NULL,      NULL,          1 << 6,       0,           -1,        50,50,500,500,        8 },
+	{ "zoom",                      NULL,       NULL,      NULL,          1 << 7,       0,           -1,        50,50,500,500,        8 },
+
+	// floating rules
+	{ "Gimp",                      NULL,       NULL,      NULL,          0,            1,           -1,        50,50,500,1000,       8 },
+	{ "Ahoviewer",                 NULL,       NULL,      NULL,          0,            1,           -1,        50,50,1500,1000,      8 },
+	{ "Hachoir-metadata-gtk",      NULL,       NULL,      NULL,          0,            1,           -1,        50,50,500,500,        8 },
+	{ "Gcolor3",                   NULL,       NULL,      NULL,          0,            1,           -1,        50,50,500,500,        8 },
+	{ "Gnome-calculator",          NULL,       NULL,      NULL,          0,            1,           -1,        50,50,500,500,        8 },
+	{ "Android Emulator",          NULL,       NULL,      NULL,          0,            1,           -1,        50,50,500,500,        8 },
+	{ "Blueberry.py",              NULL,       NULL,      NULL,          0,            1,           -1,        50,50,500,500,        8 },
+	{ "Zoom Group Chat",           NULL,       NULL,      NULL,          0,            1,           -1,        50,50,500,500,        8 },
 };
 
 /* key definitions */
@@ -156,15 +156,15 @@ static Key keys[] = {
 	/* modifier                     key        function        argument */
 	//{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
 	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
-    { MODKEY,                       XK_space,  spawn,          {.v = roficmd } },
-    { MODKEY|ShiftMask,             XK_d,      spawn,          {.v = cmd_rofi_refresh_files } },
-    { MODKEY,                       XK_e,      spawn,          {.v = cmd_files } },
-    { MODKEY|ShiftMask,             XK_e,      spawn,          {.v = cmd_files_terminal } },
-    { MODKEY,                       XK_n,      spawn,          {.v = cmd_music_terminal } },
-    { MODKEY,                       XK_b,      spawn,          {.v = cmd_browser } },
-    { MODKEY,                       XK_u,      spawn,          {.v = cmd_text_editor } },
-    { MODKEY,                       XK_i,      spawn,          {.v = cmd_ide } },
-    { MODKEY|ControlMask,           XK_l,      spawn,          {.v = cmd_lock } },
+	{ MODKEY,                       XK_space,  spawn,          {.v = roficmd } },
+	{ MODKEY|ShiftMask,             XK_d,      spawn,          {.v = cmd_rofi_refresh_files } },
+	{ MODKEY,                       XK_e,      spawn,          {.v = cmd_files } },
+	{ MODKEY|ShiftMask,             XK_e,      spawn,          {.v = cmd_files_terminal } },
+	{ MODKEY,                       XK_n,      spawn,          {.v = cmd_music_terminal } },
+	{ MODKEY,                       XK_b,      spawn,          {.v = cmd_browser } },
+	{ MODKEY,                       XK_u,      spawn,          {.v = cmd_text_editor } },
+	{ MODKEY,                       XK_i,      spawn,          {.v = cmd_ide } },
+	{ MODKEY|ControlMask,           XK_l,      spawn,          {.v = cmd_lock } },
 	{ MODKEY|ControlMask,           XK_s,      spawn,          SHCMD("transset-df -a --dec .1") },
 	{ MODKEY|ControlMask,           XK_d,      spawn,          SHCMD("transset-df -a --inc .1") },
 	{ MODKEY|ControlMask,           XK_f,      spawn,          SHCMD("transset-df -a .75") },
@@ -180,7 +180,7 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_Return, zoom,           {0} },
 	{ Mod1Mask,                     XK_Tab,    view,           {0} },
 	{ MODKEY|ShiftMask,             XK_q,      killclient,     {0} },
-    { MODKEY|ShiftMask,             XK_j,      pushdown,       {0} },
+	{ MODKEY|ShiftMask,             XK_j,      pushdown,       {0} },
 	{ MODKEY|ShiftMask,             XK_k,      pushup,         {0} },
 	{ MODKEY|Mod1Mask,              XK_h,      incrgaps,       {.i = +1 } },
 	{ MODKEY|Mod1Mask,              XK_l,      incrgaps,       {.i = -1 } },
@@ -199,13 +199,12 @@ static Key keys[] = {
 	// { MODKEY|ShiftMask,             XK_y,      incrovgaps,     {.i = +1 } },
 	// { MODKEY|ShiftMask,             XK_o,      incrovgaps,     {.i = -1 } },
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
-	//{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
 	{ MODKEY,                       XK_Left,   cyclelayout,    {.i = -1 } },
 	{ MODKEY,                       XK_Right,  cyclelayout,    {.i = +1 } },
 	{ MODKEY,                       XK_c,      setlayout,      {.v = &layouts[3]} },
 	{ MODKEY,                       XK_g,      setlayout,      {.v = &layouts[4]} },
-    { MODKEY,                       XK_s,      setlayout,      {.v = &layouts[5]} },
+	{ MODKEY,                       XK_s,      setlayout,      {.v = &layouts[5]} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
 	{ MODKEY,                       XK_f,      togglefullscr,  {0} },
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
@@ -218,6 +217,9 @@ static Key keys[] = {
 	{ MODKEY|Mod1Mask,              XK_7,      setborderpx,    {.i = -1 } },
 	{ MODKEY|Mod1Mask,              XK_8,      setborderpx,    {.i = +1 } },
 	{ MODKEY|Mod1Mask,              XK_9,      setborderpx,    {.i = 0 } },
+	{ MODKEY|ControlMask,           XK_e,      quit,           {0} },
+	{ MODKEY|ShiftMask,             XK_r,      quit,           {1} },
+	{ MODKEY,                       XK_o,      winview,        {0} },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
@@ -227,9 +229,6 @@ static Key keys[] = {
 	TAGKEYS(                        XK_7,                      6)
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
-	{ MODKEY|ControlMask,           XK_e,      quit,           {0} },
-	{ MODKEY|ShiftMask,             XK_r,      quit,           {1} },
-	{ MODKEY,                       XK_o,      winview,        {0} },
 };
 
 /* button definitions */
