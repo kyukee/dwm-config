@@ -88,7 +88,7 @@ static const Rule rules[] = {
     { "firefox",                   NULL,       NULL,      "\uf269",      1 << 1,       0,           -1,        50,50,500,500,        8 },
     { "code-oss",                  NULL,       NULL,      NULL,          1 << 2,       0,           -1,        50,50,500,500,        8 },
     { "Thunar",                    NULL,       NULL,      NULL,          1 << 3,       0,           -1,        50,50,500,500,        8 },
-	{ "Emacs",                     NULL,       NULL,      NULL,          1 << 4,       0,           -1,        50,50,500,500,        8 },
+	{ "Emacs",                     NULL,       NULL,      "\uf1b2",      1 << 4,       0,           -1,        50,50,500,500,        8 },
     { "Subl3",                     NULL,       NULL,      NULL,          1 << 4,       0,           -1,        50,50,500,500,        8 },
     { terminal,                   "ncmpcpp",   NULL,      NULL,          1 << 5,       0,           -1,        50,50,500,500,        8 },
     { "youtube-music-desktop-app", NULL,       NULL,      NULL,          1 << 5,       0,           -1,        50,50,500,500,        8 },
