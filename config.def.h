@@ -28,7 +28,8 @@ enum showtab_modes { showtab_always, showtab_never, showtab_nmodes, showtab_auto
 static const int showtab			= showtab_always;        /* Default tab bar show mode */
 static const int toptab				= False;                 /* False means bottom tab bar */
 static const int centertab			= True;
-static const int padtab             = 30;                    /* lR padding for tab windows */
+static const int padtab             = 60;                    /* lR padding for tab windows */ // 30
+static const char *def_tab_icon     = "\uf111";      /* default tab icon*/
 static const char dmenufont[]       = "monospace:size=10";
 static const char col_gray1[]       = "#222222";
 static const char col_gray2[]       = "#444444";
@@ -39,13 +40,14 @@ static const char col_red_bright[]  = "#BD335E";
 static const char col_red[]         = "#822B45";
 static const char col_purple_light[]= "#564c69";
 static const char col_purple_dark[] = "#3C2454";
+static const char col_yellow[]      = "#a3a337";
 static const unsigned int baralpha = 0xc3;      /* alpha range: 00 - ff */
 static const unsigned int baralphasel = 0xfb;
 static const unsigned int borderalpha = 0x8f;
-static const char *colors[][4]      = {
-	/*               fg         bg                border            float border*/
-	[SchemeNorm] = { col_gray3, col_gray1,        col_purple_light, col_gray3 },
-	[SchemeSel]  = { col_gray4, col_purple_dark,  col_red,          col_red_bright },
+static const char *colors[][5]      = {
+	/*               fg          bg                border             float border     icon fg   */
+	[SchemeNorm] = { col_gray3,  col_gray1,        col_purple_light,  col_gray3,       col_yellow },
+	[SchemeSel]  = { col_gray4,  col_purple_dark,  col_red,           col_red_bright,  col_yellow },
 };
 static const unsigned int alphas[][3]      = {
 	/*               fg      bg           border     */
@@ -80,28 +82,28 @@ static const Rule rules[] = {
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-	/* class                       instance    title       tags mask     isfloating   monitor    float x,y,w,h         floatborderpx*/
+	/* class                       instance    title      tab icon       tags mask     isfloating   monitor    float x,y,w,h         floatborderpx*/
 
 	// tag assignment
-    { "firefox",                   NULL,       NULL,       1 << 1,       0,           -1,        50,50,500,500,        8 },
-    { "code-oss",                  NULL,       NULL,       1 << 2,       0,           -1,        50,50,500,500,        8 },
-    { "Thunar",                    NULL,       NULL,       1 << 3,       0,           -1,        50,50,500,500,        8 },
-    { "Subl3",                     NULL,       NULL,       1 << 4,       0,           -1,        50,50,500,500,        8 },
-	{ "Emacs",                     NULL,       NULL,       1 << 4,       0,           -1,        50,50,500,500,        8 },
-    { terminal,                   "ncmpcpp",   NULL,       1 << 5,       0,           -1,        50,50,500,500,        8 },
-    { "youtube-music-desktop-app", NULL,       NULL,       1 << 5,       0,           -1,        50,50,500,500,        8 },
-    { "mpv",                       NULL,       NULL,       1 << 6,       0,           -1,        50,50,500,500,        8 },
-    { "zoom",                      NULL,       NULL,       1 << 7,       0,           -1,        50,50,500,500,        8 },
+    { "firefox",                   NULL,       NULL,      "\uf269",      1 << 1,       0,           -1,        50,50,500,500,        8 },
+    { "code-oss",                  NULL,       NULL,      NULL,          1 << 2,       0,           -1,        50,50,500,500,        8 },
+    { "Thunar",                    NULL,       NULL,      NULL,          1 << 3,       0,           -1,        50,50,500,500,        8 },
+	{ "Emacs",                     NULL,       NULL,      NULL,          1 << 4,       0,           -1,        50,50,500,500,        8 },
+    { "Subl3",                     NULL,       NULL,      NULL,          1 << 4,       0,           -1,        50,50,500,500,        8 },
+    { terminal,                   "ncmpcpp",   NULL,      NULL,          1 << 5,       0,           -1,        50,50,500,500,        8 },
+    { "youtube-music-desktop-app", NULL,       NULL,      NULL,          1 << 5,       0,           -1,        50,50,500,500,        8 },
+    { "mpv",                       NULL,       NULL,      NULL,          1 << 6,       0,           -1,        50,50,500,500,        8 },
+    { "zoom",                      NULL,       NULL,      NULL,          1 << 7,       0,           -1,        50,50,500,500,        8 },
 
 	// floating rules
-    { "Gimp",                      NULL,       NULL,       0,            1,           -1,        50,50,500,1000,       8 },
-    { "Ahoviewer",                 NULL,       NULL,       0,            1,           -1,        50,50,1500,1000,      8 },
-    { "Hachoir-metadata-gtk",      NULL,       NULL,       0,            1,           -1,        50,50,500,500,        8 },
-    { "Gcolor3",                   NULL,       NULL,       0,            1,           -1,        50,50,500,500,        8 },
-    { "Gnome-calculator",          NULL,       NULL,       0,            1,           -1,        50,50,500,500,        8 },
-    { "Android Emulator",          NULL,       NULL,       0,            1,           -1,        50,50,500,500,        8 },
-    { "Blueberry.py",              NULL,       NULL,       0,            1,           -1,        50,50,500,500,        8 },
-    { "Zoom Group Chat",           NULL,       NULL,       0,            1,           -1,        50,50,500,500,        8 },
+    { "Gimp",                      NULL,       NULL,      NULL,          0,            1,           -1,        50,50,500,1000,       8 },
+    { "Ahoviewer",                 NULL,       NULL,      NULL,          0,            1,           -1,        50,50,1500,1000,      8 },
+    { "Hachoir-metadata-gtk",      NULL,       NULL,      NULL,          0,            1,           -1,        50,50,500,500,        8 },
+    { "Gcolor3",                   NULL,       NULL,      NULL,          0,            1,           -1,        50,50,500,500,        8 },
+    { "Gnome-calculator",          NULL,       NULL,      NULL,          0,            1,           -1,        50,50,500,500,        8 },
+    { "Android Emulator",          NULL,       NULL,      NULL,          0,            1,           -1,        50,50,500,500,        8 },
+    { "Blueberry.py",              NULL,       NULL,      NULL,          0,            1,           -1,        50,50,500,500,        8 },
+    { "Zoom Group Chat",           NULL,       NULL,      NULL,          0,            1,           -1,        50,50,500,500,        8 },
 };
 
 /* layout(s) */

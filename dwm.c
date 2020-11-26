@@ -110,6 +110,7 @@ typedef struct Monitor Monitor;
 typedef struct Client Client;
 struct Client {
 	char name[256];
+	char tab_icon[16];
 	float mina, maxa;
 	int x, y, w, h;
 	int oldx, oldy, oldw, oldh;
@@ -176,6 +177,7 @@ typedef struct {
 	const char *class;
 	const char *instance;
 	const char *title;
+	const char *tab_icon;
 	unsigned int tags;
 	int isfloating;
 	int monitor;
@@ -404,6 +406,7 @@ applyrules(Client *c)
 	/* rule matching */
 	c->isfloating = 0;
 	c->tags = 0;
+	strcpy(c->tab_icon, def_tab_icon);
 	XGetClassHint(dpy, c->win, &ch);
 	class    = ch.res_class ? ch.res_class : broken;
 	instance = ch.res_name  ? ch.res_name  : broken;
@@ -417,6 +420,8 @@ applyrules(Client *c)
 			c->isfloating = r->isfloating;
 			c->tags |= r->tags;
 			c->floatborderpx = r->floatborderpx;
+			if(r->tab_icon)
+              strcpy(c->tab_icon, r->tab_icon);
 			if (r->isfloating) {
 				c->x = r->floatx;
 				c->y = r->floaty;
@@ -1213,7 +1218,7 @@ drawtab(Monitor *m) {
 	m->ntabs = 0;
 	for(c = m->clients; c; c = c->next){
 	  if(!ISVISIBLE(c)) continue;
-	  m->tab_widths[m->ntabs] = TEXTW(c->name) - space;
+	  m->tab_widths[m->ntabs] = TEXTW(c->name) + TEXTW(c->tab_icon) - space;
 	  tot_width += m->tab_widths[m->ntabs] + pad;
 	  ++m->ntabs;
 	  if(m->ntabs >= MAXTABS) break;
@@ -1253,10 +1258,20 @@ drawtab(Monitor *m) {
 	  if(i >= m->ntabs) break;
       m->tab_widths[i] += pad;
 	  if(m->tab_widths[i] >  maxsize) m->tab_widths[i] = maxsize;
-	  w = m->tab_widths[i];
-	  drw_setscheme(drw, scheme[(c == m->sel) ? SchemeSel : SchemeNorm]);
-      // there is an empty space at the end of the title text, therefore we subtract a fixed value
-	  drw_text(drw, x, 0, w, th, pad / 2, c->name, 0);
+		char *icon = c->tab_icon;
+		int icon_w = TEXTW(icon);
+		int curr_scheme = (c == m->sel ? SchemeSel : SchemeNorm);
+
+		w = m->tab_widths[i];
+
+		drw_setscheme(drw, scheme[curr_scheme]);
+
+		drw_clr_create(drw, &drw->scheme[ColFg], colors[curr_scheme][ColIcon], OPAQUE);
+		drw_text(drw, x, 0, icon_w+(pad/2), th, pad/2+icon_w/4-pad/10, icon, 0);
+
+		drw_clr_create(drw, &drw->scheme[ColFg], colors[curr_scheme][ColFg], OPAQUE);
+		drw_text(drw, x+icon_w+(pad/2), 0, w-icon_w, th, pad/10, c->name, 0);
+
 	  x += w;
 	  ++i;
 	}
@@ -2464,7 +2479,7 @@ setup(void)
 	scheme = ecalloc(LENGTH(colors) + 1, sizeof(Clr *));
 	scheme[LENGTH(colors)] = drw_scm_create(drw, colors[0], alphas[0], 4);
 	for (i = 0; i < LENGTH(colors); i++)
-		scheme[i] = drw_scm_create(drw, colors[i], alphas[i], 4);
+		scheme[i] = drw_scm_create(drw, colors[i], alphas[i], 5);
 	/* init system tray */
 	if (showsystray)
 		updatesystray();
