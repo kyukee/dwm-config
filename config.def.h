@@ -83,11 +83,11 @@ static const int resizehints = 0;    /* 1 means respect size hints in tiled resi
 
 #include "layouts.c"
 static const Layout layouts[] = {
-	/* symbol     arrange function */
+	/* symbol         arrange function */
 	{ "T \uf0c9",     tile },    /* first entry is default */
 	{ "F \ue965",     NULL },    /* no layout function means floating behavior */
-	{ "M [M]",        monocle },
-	{ "D [D]",        deck },
+	{ "M \uf2d0",     monocle },
+	{ "D \uebc7",     deck },
 	{ "G \uf00a",     grid },
 	{ "C \uea99",     tcl },
 	{ NULL,           NULL },
@@ -139,11 +139,13 @@ static const char *termcmd[]  = { terminal, NULL };
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 static const char *roficmd[] = { "rofi", "-show", "combi", NULL };
+static const char *roficmd_power[] = { "rofi", "-show", "power-menu", "-modi", "power-menu:~/Scripts/rofi-power-menu.sh", NULL };
 
 static const char scratchpadname[] = "scratchpad";
 static const char *scratchpadcmd[] = { terminal, "--title", scratchpadname, NULL };
 
 static const char *cmd_rofi_refresh_files[] = { "/home/kyukee/Scripts/fmenu-rofi.sh", "-f", NULL };
+static const char *cmd_color_picker[]  = { "/home/kyukee/Scripts/xcolor_notif.sh", NULL };
 static const char *cmd_files[]  = { "thunar", NULL };
 static const char *cmd_files_terminal[]  = { terminal, "--name", "ranger", "-e", "ranger", NULL };
 static const char *cmd_music_terminal[]  = { terminal, "--name", "ncmpcpp", "-e", "ncmpcpp", NULL };
@@ -154,8 +156,8 @@ static const char *cmd_lock[]  = { "i3lock", "--blur=10", "--composite", "--cloc
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
-	//{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
-	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
+	{ MODKEY,                       XK_p,      spawn,          {.v = roficmd_power } },
+	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_space,  spawn,          {.v = roficmd } },
 	{ MODKEY|ShiftMask,             XK_d,      spawn,          {.v = cmd_rofi_refresh_files } },
 	{ MODKEY,                       XK_e,      spawn,          {.v = cmd_files } },
@@ -165,19 +167,20 @@ static Key keys[] = {
 	{ MODKEY,                       XK_u,      spawn,          {.v = cmd_text_editor } },
 	{ MODKEY,                       XK_i,      spawn,          {.v = cmd_ide } },
 	{ MODKEY|ControlMask,           XK_l,      spawn,          {.v = cmd_lock } },
+  { MODKEY|ShiftMask,             XK_c,      spawn,          {.v = cmd_color_picker } },
 	{ MODKEY|ControlMask,           XK_s,      spawn,          SHCMD("transset-df -a --dec .1") },
 	{ MODKEY|ControlMask,           XK_d,      spawn,          SHCMD("transset-df -a --inc .1") },
 	{ MODKEY|ControlMask,           XK_f,      spawn,          SHCMD("transset-df -a .75") },
 	{ MODKEY|ControlMask,           XK_Return, togglescratch,  {.v = scratchpadcmd } },
 	{ MODKEY|ShiftMask,             XK_b,      togglebar,      {0} },
-	{ MODKEY,                       XK_w,      tabmode,        {-1} },
+	{ MODKEY|ShiftMask,             XK_t,      tabmode,        {-1} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
 	{ MODKEY,                       XK_plus,   incnmaster,     {.i = +1 } },
 	{ MODKEY,                       XK_minus,  incnmaster,     {.i = -1 } },
 	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
-	{ MODKEY|ShiftMask,             XK_Return, zoom,           {0} },
+	{ MODKEY,                       XK_Return, zoom,           {0} },
 	{ Mod1Mask,                     XK_Tab,    view,           {0} },
 	{ MODKEY|ShiftMask,             XK_q,      killclient,     {0} },
 	{ MODKEY|ShiftMask,             XK_j,      pushdown,       {0} },
