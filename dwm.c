@@ -2113,7 +2113,7 @@ run(void)
 void
 runAutostart(void)
 {
-	system("cd ~/dwm; ./autostart.sh &");
+	system("cd ~/Development/dwm; ./autostart.sh &");
 }
 
 void
