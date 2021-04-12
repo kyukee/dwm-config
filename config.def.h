@@ -104,7 +104,7 @@ static const Rule rules[] = {
 	// tag assignment
 	{ "firefox",                   NULL,       NULL,      "\uf269",      1 << 1,       0,           -1,        50,50,500,500,        8 },
 	{ "code-oss",                  NULL,       NULL,      NULL,          1 << 2,       0,           -1,        50,50,500,500,        8 },
-	{ "Thunar",                    NULL,       NULL,      NULL,          1 << 3,       0,           -1,        50,50,500,500,        8 },
+	{ "Nemo",                      NULL,       NULL,      NULL,          1 << 3,       0,           -1,        50,50,500,500,        8 },
 	{ "Emacs",                     NULL,       NULL,      "\uf1b2",      1 << 4,       0,           -1,        50,50,500,500,        8 },
 	{ "Subl3",                     NULL,       NULL,      NULL,          1 << 4,       0,           -1,        50,50,500,500,        8 },
 	{ terminal,                   "ncmpcpp",   NULL,      NULL,          1 << 5,       0,           -1,        50,50,500,500,        8 },
@@ -146,7 +146,8 @@ static const char *scratchpadcmd[] = { terminal, "--title", scratchpadname, NULL
 
 static const char *cmd_rofi_refresh_files[] = { "/home/kyukee/Scripts/fmenu-rofi.sh", "-f", NULL };
 static const char *cmd_color_picker[]  = { "/home/kyukee/Scripts/xcolor_notif.sh", NULL };
-static const char *cmd_files[]  = { "thunar", NULL };
+static const char *cmd_screengrab[]  = { "teiler", NULL };
+static const char *cmd_files[]  = { "nemo", NULL };
 static const char *cmd_files_terminal[]  = { terminal, "--name", "ranger", "-e", "ranger", NULL };
 static const char *cmd_music_terminal[]  = { terminal, "--name", "ncmpcpp", "-e", "ncmpcpp", NULL };
 static const char *cmd_browser[]  = { "firefox", NULL };
@@ -167,7 +168,8 @@ static Key keys[] = {
 	{ MODKEY,                       XK_u,      spawn,          {.v = cmd_text_editor } },
 	{ MODKEY,                       XK_i,      spawn,          {.v = cmd_ide } },
 	{ MODKEY|ControlMask,           XK_l,      spawn,          {.v = cmd_lock } },
-  { MODKEY|ShiftMask,             XK_c,      spawn,          {.v = cmd_color_picker } },
+	{ MODKEY|ShiftMask,             XK_c,      spawn,          {.v = cmd_color_picker } },
+	{ MODKEY|ShiftMask,             XK_s,      spawn,          {.v = cmd_screengrab } },
 	{ MODKEY|ControlMask,           XK_s,      spawn,          SHCMD("transset-df -a --dec .1") },
 	{ MODKEY|ControlMask,           XK_d,      spawn,          SHCMD("transset-df -a --inc .1") },
 	{ MODKEY|ControlMask,           XK_f,      spawn,          SHCMD("transset-df -a .75") },
@@ -211,7 +213,7 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
 	{ MODKEY,                       XK_f,      togglefullscr,  {0} },
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
-	{ MODKEY,                       XK_Tab,    view,           {.ui = ~0 } },
+	// { MODKEY,                       XK_Tab,    view,           {.ui = ~0 } },
 	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
 	{ MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
 	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
