@@ -25,9 +25,13 @@ dunst -c ~/.config/dunst/dunstrc &
 nm-applet &
 parcittox &
 blueman-tray &
-volumeicon &
+volctl &
 syncthing-gtk &
 yad --notification --command='gsimplecal' --image='/usr/share/icons/clarity-albus/16x16/apps/calendar.png' --text='yad notification - Calendar' &
+alttab -mk Super_L -w 1 -d 1 &
+
+# run battery level daemon
+/home/kyukee/Scripts/battery_level_alert.sh &
 
 # wait and start a local server
 ~/.npm-global/lib/node_modules/http-server/bin/http-server ~/.startpage -p 9000 &

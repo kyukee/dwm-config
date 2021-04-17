@@ -15,8 +15,6 @@ static const Block blocks[] = {
     {"", "~/Development/dwm/dwmblocks-master/bar-functions/clock.sh",                  5,                0},
 
     {"", "~/Development/dwm/dwmblocks-master/bar-functions/battery.sh",               10,                0},
-
-    {"", "~/Development/dwm/dwmblocks-master/bar-functions/battery_notif.sh",         60,                0},
 };
 
 //sets delimeter between status commands. NULL character ('\0') means no delimeter.
