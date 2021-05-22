@@ -5,7 +5,8 @@ cd $HOME
 ##### Executed every restart
 
 feh --bg-fill /home/kyukee/Pictures/wallpapers/imageedit_8_8640256032.png
-setxkbmap pt
+# setxkbmap pt
+setxkbmap us
 xrdb ~/.Xresources
 killall dwmblocks
 dwmblocks &
@@ -29,6 +30,7 @@ volctl &
 syncthing-gtk &
 yad --notification --command='gsimplecal' --image='/usr/share/icons/clarity-albus/16x16/apps/calendar.png' --text='yad notification - Calendar' &
 alttab -mk Super_L -w 1 -d 1 &
+caffeine-indicator &
 
 # run battery level daemon
 /home/kyukee/Scripts/battery_level_alert.sh &
