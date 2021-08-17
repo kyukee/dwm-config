@@ -2172,6 +2172,23 @@ sendmon(Client *c, Monitor *m)
 }
 
 void
+sendmon2(Client *c, Monitor *m)
+{
+	if (c->mon == m)
+		return;
+	unfocus(c, 1);
+	detach(c);
+	detachstack(c);
+	c->mon = m;
+  /* c->tags = m->tagset[m->seltags]; /\* assign tags of target monitor *\/ */
+	updateclientdesktop(c);
+	attach(c);
+	attachstack(c);
+	focus(NULL);
+	arrange(NULL);
+}
+
+void
 setborderpx(const Arg *arg)
 {
 	Client *c;
@@ -2614,7 +2631,7 @@ tagmon(const Arg *arg)
 {
 	if (!selmon->sel || !mons->next)
 		return;
-	sendmon(selmon->sel, dirtomon(arg->i));
+	sendmon2(selmon->sel, dirtomon(arg->i));
 }
 
 void

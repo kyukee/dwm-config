@@ -2,44 +2,72 @@
 
 cd $HOME
 
-##### Executed every restart
+##########################
+# Executed every restart #
+##########################
 
 feh --bg-fill /home/kyukee/Pictures/wallpapers/imageedit_8_8640256032.png
-# setxkbmap pt
-setxkbmap us
+setxkbmap us -variant altgr-intl -option "shift:both_capslock,ctrl:nocaps"
 xrdb ~/.Xresources
 killall dwmblocks
 dwmblocks &
 
-##### Executed one time at startup
+################################
+# Executed one time at startup #
+################################
 
+# start picom if not already running; detect dwm restart based on exit code
 picom -b
 
 if [ $? -ne 0 ]; then
     exit 0
 fi
 
-# tray icons
-xflux -l 38.7:-9.1 -k 4500 &
-mpd &
-dunst -c ~/.config/dunst/dunstrc &
+# ------------
+#  tray icons
+# ------------
+
 nm-applet &
 parcittox &
-blueman-tray &
+blueberry-tray > /tmp/blueberry-tray-out.txt 2>&1 &
 volctl &
 syncthing-gtk &
 yad --notification --command='gsimplecal' --image='/usr/share/icons/clarity-albus/16x16/apps/calendar.png' --text='yad notification - Calendar' &
-alttab -mk Super_L -w 1 -d 1 &
 caffeine-indicator &
+fluxgui &
+pass "Password Manager/keepass" | keepassxc --pw-stdin ~/Cloud/Work\ -\ Google\ Cloud/Keepass/password_database.kdbx &
 
-# run battery level daemon
+# --------------------
+#  background daemons
+# --------------------
+
+# color temperature
+# xflux -l '38' -g '-9' -k 4500 &
+
+# music
+mpd &
+
+# notifications
+dunst -c ~/.config/dunst/dunstrc &
+
+# window switcher
+alttab -mk Super_L -w 1 -d 1 &
+
+# battery level alert
 /home/kyukee/Scripts/battery_level_alert.sh &
 
-# wait and start a local server
-~/.npm-global/lib/node_modules/http-server/bin/http-server ~/.startpage -p 9000 &
+# local http server for custom startpage
+~/.npm-global/lib/node_modules/http-server/bin/http-server ~/Development/git/startpage -p 9000 &
+
+# -----------------
+#  startup actions
+# -----------------
 
 # update file index
 nice -n 19 /home/kyukee/Scripts/fmenu-rofi.sh -u &
+
+# adjust monitor configuration
+autorandr --change
 
 # wait and start a terminal
 (sleep 1; kitty) &

@@ -6,7 +6,7 @@
 static const unsigned int borderpx  = 5;            /* border pixel of windows */
 static const unsigned int snap      = 32;           /* snap pixel */
 static const unsigned int systraypinning = 0;       /* 0: sloppy systray follows selected monitor, >0: pin systray to monitor X */
-static const unsigned int systrayspacing = 6;       /* systray spacing */
+static const unsigned int systrayspacing = 8;       /* systray spacing */
 static const int systraypinningfailfirst = 1;       /* 1: if pinning fails, display systray on the first monitor, False: display systray on the last monitor*/
 static const int showsystray        = 1;            /* 0 means no systray */
 static const unsigned int gappih    = 10;           /* horiz inner gap between windows */
@@ -61,23 +61,23 @@ static const char terminal[] = "kitty";
 /* tagging */
 static const char *tags[] = {
 	"1 \uecc8",   /* terminal */
-	"2 \uebde",   /* browser (personal) */
-	"3 \uec24",   /* ide */
-	"4 \ue970",   /* file browser */
-	"5 \uf15c",   /* text editor */
-	"6 \uf001",   /* music */
-	"7 \uf069",   /* misc */
+  "2 \uebde",   /* browser (personal) */
+	"3 \uf15c",   /* programming */
+	"4 \uea2c",   /* browser (work) */
+	"5 \ue970",   /* file browser */
+	"6 \ue92c",   /* video */
+	"7 \uf001",   /* music */
 	"8 \uf27a",   /* communication */
-	"9 \uea2c"    /* browser (work) */
+	"9 \uf069",   /* misc */
 };
 
 /* default layout per tags */
 /* The first element is for all-tag view, following i-th element corresponds to */
 /* tags[i]. Layout is referred using the layouts array index.*/
-static int def_layouts[1 + LENGTH(tags)]  = { 4, 0, 2, 0, 0, 0, 0, 0, 0, 0};
+static int def_layouts[1 + LENGTH(tags)]  = { 4, 0, 2, 2, 2, 2, 2, 2, 2, 2};
 
 /* layout(s) */
-static const float mfact     = 0.6; /* factor of master area size [0.05..0.95] */
+static const float mfact     = 0.6;  /* factor of master area size [0.05..0.95] */
 static const int nmaster     = 1;    /* number of clients in master area */
 static const int resizehints = 0;    /* 1 means respect size hints in tiled resizals */
 
@@ -102,18 +102,19 @@ static const Rule rules[] = {
 	/* class                       instance    title      tab icon       tags mask     isfloating   monitor    float x,y,w,h         floatborderpx*/
 
 	// tag assignment
-	{ "firefox",                   NULL,       NULL,      "\uf269",      1 << 1,       0,           -1,        50,50,500,500,        8 },
+	{ "firefox",                   NULL,       NULL,     "\uf269",       1 << 1,       0,           -1,        50,50,500,500,        8 },
 	{ "code-oss",                  NULL,       NULL,      NULL,          1 << 2,       0,           -1,        50,50,500,500,        8 },
-	{ "Nemo",                      NULL,       NULL,      NULL,          1 << 3,       0,           -1,        50,50,500,500,        8 },
-	{ "Emacs",                     NULL,       NULL,      "\uf1b2",      1 << 4,       0,           -1,        50,50,500,500,        8 },
-	{ "Subl3",                     NULL,       NULL,      NULL,          1 << 4,       0,           -1,        50,50,500,500,        8 },
-	{ terminal,                   "ncmpcpp",   NULL,      NULL,          1 << 5,       0,           -1,        50,50,500,500,        8 },
-	{ "youtube-music-desktop-app", NULL,       NULL,      NULL,          1 << 5,       0,           -1,        50,50,500,500,        8 },
-	{ "mpv",                       NULL,       NULL,      NULL,          1 << 6,       0,           -1,        50,50,500,500,        8 },
+	{ "Emacs",                     NULL,       NULL,     "\uf1b2",       1 << 2,       0,           -1,        50,50,500,500,        8 },
+	{ "Subl3",                     NULL,       NULL,      NULL,          1 << 2,       0,           -1,        50,50,500,500,        8 },
+	{ "Nemo",                      NULL,       NULL,      NULL,          1 << 4,       0,           -1,        50,50,500,500,        8 },
+	{ "mpv",                       NULL,       NULL,      NULL,          1 << 5,       0,           -1,        50,50,500,500,        8 },
+	{ terminal,                   "ncmpcpp",   NULL,      NULL,          1 << 6,       0,           -1,        50,50,500,500,        8 },
+	{ "youtube-music-desktop-app", NULL,       NULL,      NULL,          1 << 6,       0,           -1,        50,50,500,500,        8 },
 	{ "zoom",                      NULL,       NULL,      NULL,          1 << 7,       0,           -1,        50,50,500,500,        8 },
+  { "KeePassXC",                 NULL,       NULL,      NULL,          1 << 8,       0,           -1,        50,50,500,500,        8 },
+  { "qBittorrent",               NULL,       NULL,      NULL,          1 << 8,       0,           -1,        50,50,500,500,        8 },
 
 	// floating rules
-	{ "Gimp",                      NULL,       NULL,      NULL,          0,            1,           -1,        50,50,500,1000,       8 },
 	{ "Ahoviewer",                 NULL,       NULL,      NULL,          0,            1,           -1,        50,50,1500,1000,      8 },
 	{ "Hachoir-metadata-gtk",      NULL,       NULL,      NULL,          0,            1,           -1,        50,50,500,500,        8 },
 	{ "Gcolor3",                   NULL,       NULL,      NULL,          0,            1,           -1,        50,50,500,500,        8 },
@@ -121,6 +122,7 @@ static const Rule rules[] = {
 	{ "Android Emulator",          NULL,       NULL,      NULL,          0,            1,           -1,        50,50,500,500,        8 },
 	{ "Blueberry.py",              NULL,       NULL,      NULL,          0,            1,           -1,        50,50,500,500,        8 },
 	{ "Zoom Group Chat",           NULL,       NULL,      NULL,          0,            1,           -1,        50,50,500,500,        8 },
+  { "XVkbd",                     NULL,       NULL,      NULL,          0,            1,           -1,        50,50,900,300,        8 },
 };
 
 /* key definitions */
@@ -151,9 +153,9 @@ static const char *cmd_files[]  = { "nemo", NULL };
 static const char *cmd_files_terminal[]  = { terminal, "--name", "ranger", "-e", "ranger", NULL };
 static const char *cmd_music_terminal[]  = { terminal, "--name", "ncmpcpp", "-e", "ncmpcpp", NULL };
 static const char *cmd_browser[]  = { "firefox", NULL };
-static const char *cmd_text_editor[]  = { "emacs", NULL };
+static const char *cmd_text_editor[]  = { "/home/kyukee/Scripts/emacs-server.sh", NULL };
 static const char *cmd_ide[]  = { "code-oss", NULL };
-static const char *cmd_lock[]  = { "i3lock", "--blur=10", "--composite", "--clock", "--timecolor=ffffffff", "--timesize=90", "--datecolor=ffffffff", "--datesize=24", NULL };
+static const char *cmd_lock[]  = { "/home/kyukee/Scripts/screen_lock.sh", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
