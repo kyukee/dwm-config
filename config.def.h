@@ -116,7 +116,7 @@ static const Rule rules[] = {
   { "qBittorrent",               NULL,       NULL,      NULL,          1 << 8,       0,           -1,        50,50,500,500,        8 },
 
 	// floating rules
-	{ "Ahoviewer",                 NULL,       NULL,      NULL,          0,            1,           -1,        50,50,1500,1000,      8 },
+	{ "qimgv",                     NULL,       NULL,      NULL,          0,            1,           -1,        100,100,1500,1000,    8 },
 	{ "Hachoir-metadata-gtk",      NULL,       NULL,      NULL,          0,            1,           -1,        50,50,500,500,        8 },
 	{ "Gcolor3",                   NULL,       NULL,      NULL,          0,            1,           -1,        50,50,500,500,        8 },
 	{ "Gnome-calculator",          NULL,       NULL,      NULL,          0,            1,           -1,        50,50,500,500,        8 },
@@ -143,6 +143,7 @@ static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() 
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 static const char *roficmd[] = { "rofi", "-show", "combi", NULL };
 static const char *roficmd_power[] = { "rofi", "-show", "power-menu", "-modi", "power-menu:~/Scripts/rofi-power-menu.sh", NULL };
+static const char *roficmd_settings[]  = { "rofi", "-show", "system-settings", "-modi", "system-settings:~/Scripts/rofi-settings-menu.sh", NULL };
 
 static const char scratchpadname[] = "scratchpad";
 static const char *scratchpadcmd[] = { terminal, "--title", scratchpadname, NULL };
@@ -155,24 +156,25 @@ static const char *cmd_files_terminal[]  = { terminal, "--name", "ranger", "-e",
 static const char *cmd_music_terminal[]  = { terminal, "--name", "ncmpcpp", "-e", "ncmpcpp", NULL };
 static const char *cmd_browser[]  = { "firefox", NULL };
 static const char *cmd_text_editor[]  = { "/home/kyukee/Scripts/emacs-server.sh", NULL };
-static const char *cmd_ide[]  = { "code-oss", NULL };
 static const char *cmd_lock[]  = { "/home/kyukee/Scripts/screen_lock.sh", NULL };
+static const char *cmd_video_player[]  = { "mpv", "--player-operation-mode=pseudo-gui", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
-	{ MODKEY,                       XK_p,      spawn,          {.v = roficmd_power } },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_space,  spawn,          {.v = roficmd } },
-	{ MODKEY|ShiftMask,             XK_d,      spawn,          {.v = cmd_rofi_refresh_files } },
+	{ MODKEY|ControlMask,           XK_space,  spawn,          {.v = cmd_rofi_refresh_files } },
+	{ MODKEY,                       XK_p,      spawn,          {.v = roficmd_power } },
+  { MODKEY,                       XK_s,      spawn,          {.v = roficmd_settings } },
 	{ MODKEY,                       XK_e,      spawn,          {.v = cmd_files } },
 	{ MODKEY|ShiftMask,             XK_e,      spawn,          {.v = cmd_files_terminal } },
 	{ MODKEY,                       XK_n,      spawn,          {.v = cmd_music_terminal } },
 	{ MODKEY,                       XK_b,      spawn,          {.v = cmd_browser } },
 	{ MODKEY,                       XK_u,      spawn,          {.v = cmd_text_editor } },
-	{ MODKEY,                       XK_i,      spawn,          {.v = cmd_ide } },
 	{ MODKEY|ControlMask,           XK_l,      spawn,          {.v = cmd_lock } },
 	{ MODKEY|ShiftMask,             XK_c,      spawn,          {.v = cmd_color_picker } },
 	{ MODKEY|ShiftMask,             XK_s,      spawn,          {.v = cmd_screengrab } },
+	{ MODKEY|ControlMask,           XK_m,      spawn,          {.v = cmd_video_player } },
 	{ MODKEY|ControlMask,           XK_s,      spawn,          SHCMD("transset-df -a --dec .1") },
 	{ MODKEY|ControlMask,           XK_d,      spawn,          SHCMD("transset-df -a --inc .1") },
 	{ MODKEY|ControlMask,           XK_f,      spawn,          SHCMD("transset-df -a .75") },
@@ -210,9 +212,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
 	{ MODKEY,                       XK_Left,   cyclelayout,    {.i = -1 } },
 	{ MODKEY,                       XK_Right,  cyclelayout,    {.i = +1 } },
-	{ MODKEY,                       XK_c,      setlayout,      {.v = &layouts[3]} },
 	{ MODKEY,                       XK_g,      setlayout,      {.v = &layouts[4]} },
-	{ MODKEY,                       XK_s,      setlayout,      {.v = &layouts[5]} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
 	{ MODKEY,                       XK_f,      togglefullscr,  {0} },
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },

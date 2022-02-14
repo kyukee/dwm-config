@@ -7,10 +7,12 @@ cd $HOME
 ##########################
 
 feh --bg-fill /home/kyukee/Pictures/wallpapers/imageedit_8_8640256032.png
-setxkbmap us -variant altgr-intl -option "shift:both_capslock,ctrl:nocaps"
 xrdb ~/.Xresources
 killall dwmblocks
 dwmblocks &
+
+# setxkbmap us -variant altgr-intl -option "shift:both_capslock,ctrl:nocaps"
+# /etc/default/keyboard
 
 ################################
 # Executed one time at startup #
@@ -29,13 +31,15 @@ fi
 
 nm-applet &
 parcittox &
-blueberry-tray > /tmp/blueberry-tray-out.txt 2>&1 &
+blueman-applet &
+# blueberry-tray > /tmp/blueberry-tray-out.txt 2>&1 &
 volctl &
-syncthing-gtk &
-yad --notification --command='gsimplecal' --image='/usr/share/icons/clarity-albus/16x16/apps/calendar.png' --text='yad notification - Calendar' &
-caffeine-indicator &
+yad --notification --command='gsimplecal' --image='/usr/share/icons/Suru++-Asprómauros/apps/16/calendar-app.svg' --text='yad notification - Calendar' &
+caffeine &
 fluxgui &
 pass "Password Manager/keepass" | keepassxc --pw-stdin ~/Cloud/Work\ -\ Google\ Cloud/Keepass/password_database.kdbx &
+arandr-indicator &
+syncthing-gtk &
 
 # --------------------
 #  background daemons
@@ -58,6 +62,9 @@ alttab -mk Super_L -w 1 -d 1 &
 
 # local http server for custom startpage
 ~/.npm-global/lib/node_modules/http-server/bin/http-server ~/Development/git/startpage -p 9000 &
+
+# flash window on focus change
+flashfocus &
 
 # -----------------
 #  startup actions
