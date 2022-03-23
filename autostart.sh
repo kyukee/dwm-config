@@ -6,7 +6,7 @@ cd $HOME
 # Executed every restart #
 ##########################
 
-feh --bg-fill /home/kyukee/Pictures/wallpapers/imageedit_8_8640256032.png
+feh --bg-fill /home/kyukee/Pictures/wallpapers/wallpaper_symlink
 xrdb ~/.Xresources
 killall dwmblocks
 dwmblocks &
