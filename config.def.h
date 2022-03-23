@@ -36,7 +36,7 @@ static const char col_gray2[]       = "#444444";
 static const char col_gray3[]       = "#bbbbbb";
 static const char col_gray4[]       = "#eeeeee";
 static const char col_cyan[]        = "#005577";
-static const char col_red_bright[]  = "#BD335E";
+static const char col_red_bright[]  = "#33bdb0";
 static const char col_red[]         = "#822B45";
 static const char col_purple_light[]= "#564c69";
 static const char col_purple_dark[] = "#3C2454";
@@ -103,27 +103,27 @@ static const Rule rules[] = {
 	/* class                       instance    title      tab icon       tags mask     isfloating   monitor    float x,y,w,h         floatborderpx*/
 
 	// tag assignment
-	{ "firefox",                   NULL,       NULL,     "\uf269",       1 << 1,       0,           -1,        50,50,500,500,        8 },
-	{ "code-oss",                  NULL,       NULL,      NULL,          1 << 2,       0,           -1,        50,50,500,500,        8 },
-	{ "Emacs",                     NULL,       NULL,     "\uf1b2",       1 << 2,       0,           -1,        50,50,500,500,        8 },
-	{ "Subl3",                     NULL,       NULL,      NULL,          1 << 2,       0,           -1,        50,50,500,500,        8 },
-	{ "Nemo",                      NULL,       NULL,      NULL,          1 << 4,       0,           -1,        50,50,500,500,        8 },
-	{ "mpv",                       NULL,       NULL,      NULL,          1 << 5,       0,           -1,        50,50,500,500,        8 },
-	{ terminal,                   "ncmpcpp",   NULL,      NULL,          1 << 6,       0,           -1,        50,50,500,500,        8 },
-	{ "youtube-music-desktop-app", NULL,       NULL,      NULL,          1 << 6,       0,           -1,        50,50,500,500,        8 },
-	{ "zoom",                      NULL,       NULL,      NULL,          1 << 7,       0,           -1,        50,50,500,500,        8 },
-  { "KeePassXC",                 NULL,       NULL,      NULL,          1 << 8,       0,           -1,        50,50,500,500,        8 },
-  { "qBittorrent",               NULL,       NULL,      NULL,          1 << 8,       0,           -1,        50,50,500,500,        8 },
+	{ "firefox",                   NULL,       NULL,     "\uf269",       1 << 1,       0,           -1,        50,50,500,500,        5 },
+	{ "code-oss",                  NULL,       NULL,      NULL,          1 << 2,       0,           -1,        50,50,500,500,        5 },
+	{ "Emacs",                     NULL,       NULL,     "\uf1b2",       1 << 2,       0,           -1,        50,50,500,500,        5 },
+	{ "Subl3",                     NULL,       NULL,      NULL,          1 << 2,       0,           -1,        50,50,500,500,        5 },
+	{ "Nemo",                      NULL,       NULL,      NULL,          1 << 4,       0,           -1,        50,50,500,500,        5 },
+	{ "mpv",                       NULL,       NULL,      NULL,          1 << 5,       0,           -1,        50,50,500,500,        5 },
+	{ terminal,                   "ncmpcpp",   NULL,      NULL,          1 << 6,       0,           -1,        50,50,500,500,        5 },
+	{ "youtube-music-desktop-app", NULL,       NULL,      NULL,          1 << 6,       0,           -1,        50,50,500,500,        5 },
+	{ "zoom",                      NULL,       NULL,      NULL,          1 << 7,       0,           -1,        50,50,500,500,        5 },
+  { "KeePassXC",                 NULL,       NULL,      NULL,          1 << 8,       0,           -1,        50,50,500,500,        5 },
+  { "qBittorrent",               NULL,       NULL,      NULL,          1 << 8,       0,           -1,        50,50,500,500,        5 },
 
 	// floating rules
-	{ "qimgv",                     NULL,       NULL,      NULL,          0,            1,           -1,        100,100,1500,1000,    8 },
-	{ "Hachoir-metadata-gtk",      NULL,       NULL,      NULL,          0,            1,           -1,        50,50,500,500,        8 },
-	{ "Gcolor3",                   NULL,       NULL,      NULL,          0,            1,           -1,        50,50,500,500,        8 },
-	{ "Gnome-calculator",          NULL,       NULL,      NULL,          0,            1,           -1,        50,50,500,500,        8 },
-	{ "Android Emulator",          NULL,       NULL,      NULL,          0,            1,           -1,        50,50,500,500,        8 },
-	{ "Blueberry.py",              NULL,       NULL,      NULL,          0,            1,           -1,        50,50,500,500,        8 },
-	{ "Zoom Group Chat",           NULL,       NULL,      NULL,          0,            1,           -1,        50,50,500,500,        8 },
-  { "XVkbd",                     NULL,       NULL,      NULL,          0,            1,           -1,        50,50,900,300,        8 },
+	{ "qimgv",                     NULL,       NULL,      NULL,          0,            1,           -1,        100,100,1500,1000,    5 },
+	{ "Hachoir-metadata-gtk",      NULL,       NULL,      NULL,          0,            1,           -1,        50,50,500,500,        5 },
+	{ "Gcolor3",                   NULL,       NULL,      NULL,          0,            1,           -1,        50,50,500,500,        5 },
+	{ "Gnome-calculator",          NULL,       NULL,      NULL,          0,            1,           -1,        50,50,500,500,        5 },
+	{ "Android Emulator",          NULL,       NULL,      NULL,          0,            1,           -1,        50,50,500,500,        5 },
+	{ "Blueberry.py",              NULL,       NULL,      NULL,          0,            1,           -1,        50,50,500,500,        5 },
+	{ "Zoom Group Chat",           NULL,       NULL,      NULL,          0,            1,           -1,        50,50,500,500,        5 },
+  { "XVkbd",                     NULL,       NULL,      NULL,          0,            1,           -1,        50,50,900,300,        5 },
 };
 
 /* key definitions */
