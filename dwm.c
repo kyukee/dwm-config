@@ -179,9 +179,9 @@ typedef struct {
 	const char *title;
 	const char *tab_icon;
 	unsigned int tags;
-	int iscentered;
-	int isfloating;
 	int monitor;
+	int isfloating;
+	int iscentered;
 	int floatx, floaty, floatw, floath;
 	int floatborderpx;
 } Rule;

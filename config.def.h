@@ -62,7 +62,7 @@ static const char terminal[] = "kitty";
 /* tagging */
 static const char *tags[] = {
 	"1 \uecc8",   /* terminal */
-  "2 \uebde",   /* browser (personal) */
+	"2 \uebde",   /* browser (personal) */
 	"3 \uf15c",   /* programming */
 	"4 \uea2c",   /* browser (work) */
 	"5 \ue970",   /* file browser */
@@ -95,12 +95,13 @@ static const Layout layouts[] = {
 	{ NULL,           NULL },
 };
 
-/* tag assignment and floating rules */
-static const Rule rules[] = {
-	/* xprop(1):
+/* xprop(1):
 	 *  WM_CLASS(STRING) = instance, class
 	 *  WM_NAME(STRING) = title
 	 */
+
+/* tag assignment and floating rules */
+static const Rule rules[] = {
 	/* class                       instance    title      tab icon   tags mask    monitor       isfloating   iscentered   float x,y,w,h        floatborderpx*/
 
 	// tag assignment
@@ -113,8 +114,8 @@ static const Rule rules[] = {
 	{ terminal,                   "ncmpcpp",   NULL,      NULL,      1 << 6,      -1,           0,           1,           50,50,500,500,       5 },
 	{ "youtube-music-desktop-app", NULL,       NULL,      NULL,      1 << 6,      -1,           0,           1,           50,50,500,500,       5 },
 	{ "zoom",                      NULL,       NULL,      NULL,      1 << 7,      -1,           0,           1,           50,50,500,500,       5 },
-  { "KeePassXC",                 NULL,       NULL,      NULL,      1 << 8,      -1,           0,           1,           50,50,500,500,       5 },
-  { "qBittorrent",               NULL,       NULL,      NULL,      1 << 8,      -1,           0,           1,           50,50,500,500,       5 },
+	{ "KeePassXC",                 NULL,       NULL,      NULL,      1 << 8,      -1,           0,           1,           50,50,500,500,       5 },
+	{ "qBittorrent",               NULL,       NULL,      NULL,      1 << 8,      -1,           0,           1,           50,50,500,500,       5 },
 
 	// floating rules
 	{ "qimgv",                     NULL,       NULL,      NULL,      0,           -1,           1,           1,           0,0,1500,1000,     5 },
@@ -124,7 +125,8 @@ static const Rule rules[] = {
 	{ "Android Emulator",          NULL,       NULL,      NULL,      0,           -1,           1,           1,           0,0,500,500,       5 },
 	{ "Blueberry.py",              NULL,       NULL,      NULL,      0,           -1,           1,           1,           0,0,500,500,       5 },
 	{ "Zoom Group Chat",           NULL,       NULL,      NULL,      0,           -1,           1,           1,           0,0,500,500,       5 },
-  { "XVkbd",                     NULL,       NULL,      NULL,      0,           -1,           1,           1,           0,0,900,300,       5 },
+	{ "XVkbd",                     NULL,       NULL,      NULL,      0,           -1,           1,           1,           0,0,900,300,       5 },
+	{ "gsimplecal",                NULL,       NULL,      NULL,      0,           -1,           1,           0,           0,0,400,400,       5 },
 };
 
 /* key definitions */
@@ -166,7 +168,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_space,  spawn,          {.v = roficmd } },
 	{ MODKEY|ControlMask,           XK_space,  spawn,          {.v = cmd_rofi_refresh_files } },
 	{ MODKEY,                       XK_p,      spawn,          {.v = roficmd_power } },
-  { MODKEY,                       XK_s,      spawn,          {.v = roficmd_settings } },
+	{ MODKEY,                       XK_s,      spawn,          {.v = roficmd_settings } },
 	{ MODKEY,                       XK_e,      spawn,          {.v = cmd_files } },
 	{ MODKEY|ShiftMask,             XK_e,      spawn,          {.v = cmd_files_terminal } },
 	{ MODKEY,                       XK_n,      spawn,          {.v = cmd_music_terminal } },
