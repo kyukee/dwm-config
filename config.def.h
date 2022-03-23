@@ -118,15 +118,15 @@ static const Rule rules[] = {
 	{ "qBittorrent",               NULL,       NULL,      NULL,      1 << 8,      -1,           0,           1,           50,50,500,500,       5 },
 
 	// floating rules
-	{ "qimgv",                     NULL,       NULL,      NULL,      0,           -1,           1,           1,           0,0,1500,1000,     5 },
+	{ "qimgv",                     NULL,       NULL,      NULL,      0,           -1,           1,           1,           0,0,1450,900,      5 },
 	{ "Hachoir-metadata-gtk",      NULL,       NULL,      NULL,      0,           -1,           1,           1,           0,0,500,500,       5 },
-	{ "Gcolor3",                   NULL,       NULL,      NULL,      0,           -1,           1,           1,           0,0,500,500,       5 },
-	{ "Gnome-calculator",          NULL,       NULL,      NULL,      0,           -1,           1,           1,           0,0,500,500,       5 },
+	{ "Gcolor3",                   NULL,       NULL,      NULL,      0,           -1,           1,           1,           0,0,800,400,       5 },
+	{ "Gnome-calculator",          NULL,       NULL,      NULL,      0,           -1,           1,           1,           0,0,500,700,       5 },
 	{ "Android Emulator",          NULL,       NULL,      NULL,      0,           -1,           1,           1,           0,0,500,500,       5 },
 	{ "Blueberry.py",              NULL,       NULL,      NULL,      0,           -1,           1,           1,           0,0,500,500,       5 },
 	{ "Zoom Group Chat",           NULL,       NULL,      NULL,      0,           -1,           1,           1,           0,0,500,500,       5 },
 	{ "XVkbd",                     NULL,       NULL,      NULL,      0,           -1,           1,           1,           0,0,900,300,       5 },
-	{ "gsimplecal",                NULL,       NULL,      NULL,      0,           -1,           1,           0,           0,0,400,400,       5 },
+	{ "Gsimplecal",                NULL,       NULL,      NULL,      0,           -1,           1,           0,           -1,-1,300,200,     5 },
 };
 
 /* key definitions */

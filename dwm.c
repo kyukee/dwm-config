@@ -427,8 +427,10 @@ applyrules(Client *c)
 			if(r->tab_icon)
 				strcpy(c->tab_icon, r->tab_icon);
 			if (r->isfloating) {
-				c->x = r->floatx;
-				c->y = r->floaty;
+				if (!r->iscentered && r->floatx > 0 && r->floaty > 0) {
+					c->x = r->floatx;
+					c->y = r->floaty;
+				}
 				c->w = r->floatw;
 				c->h = r->floath;
 			}
