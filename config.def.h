@@ -16,6 +16,7 @@ static const unsigned int gappov    = 10;           /* vert outer gap between wi
 static const int smartgaps          = 1;            /* 1 means no outer gap when there is only one window */
 static const int showbar            = 1;            /* 0 means no bar */
 static const int topbar             = 1;            /* 0 means bottom bar */
+static const int iscentered_default = 1;            /* 1 means floating windows are centered by default */
 static const double defaultopacity  = 1;
 static const int horizpadbar        = 0;            /* horizontal padding for statusbar */
 static const int vertpadbar         = 4;            /* vertical padding for statusbar */
@@ -100,30 +101,30 @@ static const Rule rules[] = {
 	 *  WM_CLASS(STRING) = instance, class
 	 *  WM_NAME(STRING) = title
 	 */
-	/* class                       instance    title      tab icon       tags mask     isfloating   monitor    float x,y,w,h         floatborderpx*/
+	/* class                       instance    title      tab icon   tags mask    monitor       isfloating   iscentered   float x,y,w,h        floatborderpx*/
 
 	// tag assignment
-	{ "firefox",                   NULL,       NULL,     "\uf269",       1 << 1,       0,           -1,        50,50,500,500,        5 },
-	{ "code-oss",                  NULL,       NULL,      NULL,          1 << 2,       0,           -1,        50,50,500,500,        5 },
-	{ "Emacs",                     NULL,       NULL,     "\uf1b2",       1 << 2,       0,           -1,        50,50,500,500,        5 },
-	{ "Subl3",                     NULL,       NULL,      NULL,          1 << 2,       0,           -1,        50,50,500,500,        5 },
-	{ "Nemo",                      NULL,       NULL,      NULL,          1 << 4,       0,           -1,        50,50,500,500,        5 },
-	{ "mpv",                       NULL,       NULL,      NULL,          1 << 5,       0,           -1,        50,50,500,500,        5 },
-	{ terminal,                   "ncmpcpp",   NULL,      NULL,          1 << 6,       0,           -1,        50,50,500,500,        5 },
-	{ "youtube-music-desktop-app", NULL,       NULL,      NULL,          1 << 6,       0,           -1,        50,50,500,500,        5 },
-	{ "zoom",                      NULL,       NULL,      NULL,          1 << 7,       0,           -1,        50,50,500,500,        5 },
-  { "KeePassXC",                 NULL,       NULL,      NULL,          1 << 8,       0,           -1,        50,50,500,500,        5 },
-  { "qBittorrent",               NULL,       NULL,      NULL,          1 << 8,       0,           -1,        50,50,500,500,        5 },
+	{ "firefox",                   NULL,       NULL,     "\uf269",   1 << 1,      -1,           0,           1,           50,50,500,500,       5 },
+	{ "code-oss",                  NULL,       NULL,      NULL,      1 << 2,      -1,           0,           1,           50,50,500,500,       5 },
+	{ "Emacs",                     NULL,       NULL,     "\uf1b2",   1 << 2,      -1,           0,           1,           50,50,500,500,       5 },
+	{ "Subl3",                     NULL,       NULL,      NULL,      1 << 2,      -1,           0,           1,           50,50,500,500,       5 },
+	{ "Nemo",                      NULL,       NULL,      NULL,      1 << 4,      -1,           0,           1,           50,50,500,500,       5 },
+	{ "mpv",                       NULL,       NULL,      NULL,      1 << 5,      -1,           0,           1,           50,50,500,500,       5 },
+	{ terminal,                   "ncmpcpp",   NULL,      NULL,      1 << 6,      -1,           0,           1,           50,50,500,500,       5 },
+	{ "youtube-music-desktop-app", NULL,       NULL,      NULL,      1 << 6,      -1,           0,           1,           50,50,500,500,       5 },
+	{ "zoom",                      NULL,       NULL,      NULL,      1 << 7,      -1,           0,           1,           50,50,500,500,       5 },
+  { "KeePassXC",                 NULL,       NULL,      NULL,      1 << 8,      -1,           0,           1,           50,50,500,500,       5 },
+  { "qBittorrent",               NULL,       NULL,      NULL,      1 << 8,      -1,           0,           1,           50,50,500,500,       5 },
 
 	// floating rules
-	{ "qimgv",                     NULL,       NULL,      NULL,          0,            1,           -1,        100,100,1500,1000,    5 },
-	{ "Hachoir-metadata-gtk",      NULL,       NULL,      NULL,          0,            1,           -1,        50,50,500,500,        5 },
-	{ "Gcolor3",                   NULL,       NULL,      NULL,          0,            1,           -1,        50,50,500,500,        5 },
-	{ "Gnome-calculator",          NULL,       NULL,      NULL,          0,            1,           -1,        50,50,500,500,        5 },
-	{ "Android Emulator",          NULL,       NULL,      NULL,          0,            1,           -1,        50,50,500,500,        5 },
-	{ "Blueberry.py",              NULL,       NULL,      NULL,          0,            1,           -1,        50,50,500,500,        5 },
-	{ "Zoom Group Chat",           NULL,       NULL,      NULL,          0,            1,           -1,        50,50,500,500,        5 },
-  { "XVkbd",                     NULL,       NULL,      NULL,          0,            1,           -1,        50,50,900,300,        5 },
+	{ "qimgv",                     NULL,       NULL,      NULL,      0,           -1,           1,           1,           0,0,1500,1000,     5 },
+	{ "Hachoir-metadata-gtk",      NULL,       NULL,      NULL,      0,           -1,           1,           1,           0,0,500,500,       5 },
+	{ "Gcolor3",                   NULL,       NULL,      NULL,      0,           -1,           1,           1,           0,0,500,500,       5 },
+	{ "Gnome-calculator",          NULL,       NULL,      NULL,      0,           -1,           1,           1,           0,0,500,500,       5 },
+	{ "Android Emulator",          NULL,       NULL,      NULL,      0,           -1,           1,           1,           0,0,500,500,       5 },
+	{ "Blueberry.py",              NULL,       NULL,      NULL,      0,           -1,           1,           1,           0,0,500,500,       5 },
+	{ "Zoom Group Chat",           NULL,       NULL,      NULL,      0,           -1,           1,           1,           0,0,500,500,       5 },
+  { "XVkbd",                     NULL,       NULL,      NULL,      0,           -1,           1,           1,           0,0,900,300,       5 },
 };
 
 /* key definitions */
