@@ -1,6 +1,7 @@
 /* See LICENSE file for copyright and license details. */
 
 #include "tcl.c"
+#include <X11/XF86keysym.h>
 
 /* appearance */
 static const unsigned int borderpx  = 5;            /* border pixel of windows */
@@ -142,25 +143,33 @@ static const Rule rules[] = {
 
 /* commands */
 static const char *termcmd[]  = { terminal, NULL };
-static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
+
+static char dmenumon[2]       = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
-static const char *roficmd[] = { "rofi", "-show", "combi", NULL };
-static const char *roficmd_power[] = { "rofi", "-show", "power-menu", "-modi", "power-menu:~/Scripts/rofi-power-menu.sh", NULL };
+
+static const char *roficmd[]           = { "rofi", "-show", "combi", NULL };
+static const char *roficmd_power[]     = { "rofi", "-show", "power-menu", "-modi", "power-menu:~/Scripts/rofi-power-menu.sh", NULL };
 static const char *roficmd_settings[]  = { "rofi", "-show", "system-settings", "-modi", "system-settings:~/Scripts/rofi-settings-menu.sh", NULL };
 
 static const char scratchpadname[] = "scratchpad";
 static const char *scratchpadcmd[] = { terminal, "--title", scratchpadname, NULL };
 
+static const char *cmd_files_terminal[]     = { terminal, "--name", "ranger", "-e", "ranger", NULL };
+static const char *cmd_music_terminal[]     = { terminal, "--name", "ncmpcpp", "-e", "ncmpcpp", NULL };
+static const char *cmd_screengrab[]         = { "teiler", NULL };
+static const char *cmd_files[]              = { "nemo", NULL };
+static const char *cmd_browser[]            = { "firefox", NULL };
+static const char *cmd_video_player[]       = { "mpv", "--player-operation-mode=pseudo-gui", NULL };
 static const char *cmd_rofi_refresh_files[] = { "/home/kyukee/Scripts/fmenu-rofi.sh", "-f", NULL };
-static const char *cmd_color_picker[]  = { "/home/kyukee/Scripts/xcolor_notif.sh", NULL };
-static const char *cmd_screengrab[]  = { "teiler", NULL };
-static const char *cmd_files[]  = { "nemo", NULL };
-static const char *cmd_files_terminal[]  = { terminal, "--name", "ranger", "-e", "ranger", NULL };
-static const char *cmd_music_terminal[]  = { terminal, "--name", "ncmpcpp", "-e", "ncmpcpp", NULL };
-static const char *cmd_browser[]  = { "firefox", NULL };
-static const char *cmd_text_editor[]  = { "/home/kyukee/Scripts/emacs-server.sh", NULL };
-static const char *cmd_lock[]  = { "/home/kyukee/Scripts/screen_lock.sh", NULL };
-static const char *cmd_video_player[]  = { "mpv", "--player-operation-mode=pseudo-gui", NULL };
+static const char *cmd_color_picker[]       = { "/home/kyukee/Scripts/xcolor_notif.sh", NULL };
+static const char *cmd_text_editor[]        = { "/home/kyukee/Scripts/emacs-server.sh", NULL };
+static const char *cmd_lock[]               = { "/home/kyukee/Scripts/screen_lock.sh", NULL };
+
+static const char *brightness_up[]   = {"xbacklight", "-inc", "5%", NULL };
+static const char *brightness_down[] = {"xbacklight", "-dec", "5%", NULL };
+static const char *volume_up[]       = {"pactl", "set-sink-volume", "@DEFAULT_SINK@", "+5%", NULL };
+static const char *volume_down[]     = {"pactl", "set-sink-volume", "@DEFAULT_SINK@", "-5%", NULL };
+static const char *volume_toggle[]   = {"pactl", "set-sink-mute", "@DEFAULT_SINK@", "toggle", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -231,6 +240,11 @@ static Key keys[] = {
 	{ MODKEY|ControlMask,           XK_e,      quit,           {0} },
 	{ MODKEY|ShiftMask,             XK_r,      quit,           {1} },
 	{ MODKEY,                       XK_o,      winview,        {0} },
+  { 0,           XF86XK_AudioRaiseVolume,    spawn,          {.v = volume_up } },
+  { 0,           XF86XK_AudioLowerVolume,    spawn,          {.v = volume_down } },
+  { 0,           XF86XK_AudioMute,           spawn,          {.v = volume_toggle } },
+  { 0,           XF86XK_MonBrightnessUp,     spawn,          {.v = brightness_up } },
+  { 0,           XF86XK_MonBrightnessDown,   spawn,          {.v = brightness_down } },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
