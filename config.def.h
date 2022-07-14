@@ -128,6 +128,8 @@ static const Rule rules[] = {
 	{ "Zoom Group Chat",           NULL,       NULL,      NULL,      0,           -1,           1,           1,           0,0,500,500,       5 },
 	{ "XVkbd",                     NULL,       NULL,      NULL,      0,           -1,           1,           1,           0,0,900,300,       5 },
 	{ "Gsimplecal",                NULL,       NULL,      NULL,      0,           -1,           1,           0,           -1,-1,300,200,     5 },
+  { "Emacs",                     NULL,      "Ediff",   "\uf1b2",   0,           -1,           1,           1,           -1,-1,180,60,      5 },
+  { "Blueman-manager",           NULL,       NULL,      NULL,      0,           -1,           1,           1,           0,0,900,600,       5 },
 };
 
 /* key definitions */
@@ -156,10 +158,10 @@ static const char *scratchpadcmd[] = { terminal, "--title", scratchpadname, NULL
 
 static const char *cmd_files_terminal[]     = { terminal, "--name", "ranger", "-e", "ranger", NULL };
 static const char *cmd_music_terminal[]     = { terminal, "--name", "ncmpcpp", "-e", "ncmpcpp", NULL };
-static const char *cmd_screengrab[]         = { "teiler", NULL };
 static const char *cmd_files[]              = { "nemo", NULL };
 static const char *cmd_browser[]            = { "firefox", NULL };
 static const char *cmd_video_player[]       = { "mpv", "--player-operation-mode=pseudo-gui", NULL };
+static const char *cmd_screengrab[]         = { "/home/kyukee/Scripts/teiler-alt.sh", NULL };
 static const char *cmd_rofi_refresh_files[] = { "/home/kyukee/Scripts/fmenu-rofi.sh", "-f", NULL };
 static const char *cmd_color_picker[]       = { "/home/kyukee/Scripts/xcolor_notif.sh", NULL };
 static const char *cmd_text_editor[]        = { "/home/kyukee/Scripts/emacs-server.sh", NULL };

@@ -37,9 +37,10 @@ volctl &
 yad --notification --command='gsimplecal' --image='/usr/share/icons/Suru++-Asprómauros/apps/16/calendar-app.svg' --text='yad notification - Calendar' &
 caffeine &
 fluxgui &
-pass "Password Manager/keepass" | keepassxc --pw-stdin ~/Cloud/Work\ -\ Google\ Cloud/Keepass/password_database.kdbx &
+pass "Password Manager/keepass" | keepassxc --pw-stdin ~/Sync/Documents/Keepass/password_database.kdbx &
 arandr-indicator &
 syncthing-gtk &
+jellyfin-mpv-shim &
 
 # --------------------
 #  background daemons
