@@ -132,7 +132,7 @@ static const Rule rules[] = {
   { "Blueman-manager",           NULL,       NULL,      NULL,      0,           -1,       1,         1,           1,           0,0,900,600,       5 },
 
   // prohibit focus
-  { "Nemo-preview-start",        NULL,       NULL,      NULL,      0,           -1,       0,         1,           0,           -1,-1,900,600,     5 },
+  { "Nemo-preview-start",        NULL,       NULL,      NULL,      0,           -1,       0,         1,           0,           -1,-1,-1,-1,       5 },
 };
 
 /* key definitions */
