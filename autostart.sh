@@ -41,6 +41,7 @@ pass "Password Manager/keepass" | keepassxc --pw-stdin ~/Sync/Documents/Keepass/
 arandr-indicator &
 syncthing-gtk &
 jellyfin-mpv-shim &
+kdeconnect-indicator &
 
 # --------------------
 #  background daemons
