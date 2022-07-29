@@ -103,33 +103,36 @@ static const Layout layouts[] = {
 
 /* tag assignment and floating rules */
 static const Rule rules[] = {
-	/* class                       instance    title      tab icon   tags mask    monitor       isfloating   iscentered   float x,y,w,h        floatborderpx*/
+	/* class                       instance    title      tab icon   tags mask    monitor   canfocus   isfloating   iscentered   float x,y,w,h      floatborderpx*/
 
 	// tag assignment
-	{ "firefox",                   NULL,       NULL,     "\uf269",   1 << 1,      -1,           0,           1,           50,50,500,500,       5 },
-	{ "code-oss",                  NULL,       NULL,      NULL,      1 << 2,      -1,           0,           1,           50,50,500,500,       5 },
-	{ "Emacs",                     NULL,       NULL,     "\uf1b2",   1 << 2,      -1,           0,           1,           50,50,500,500,       5 },
-	{ "Subl3",                     NULL,       NULL,      NULL,      1 << 2,      -1,           0,           1,           50,50,500,500,       5 },
-	{ "Nemo",                      NULL,       NULL,      NULL,      1 << 4,      -1,           0,           1,           50,50,500,500,       5 },
-	{ "mpv",                       NULL,       NULL,      NULL,      1 << 5,      -1,           0,           1,           50,50,500,500,       5 },
-	{ terminal,                   "ncmpcpp",   NULL,      NULL,      1 << 6,      -1,           0,           1,           50,50,500,500,       5 },
-	{ "youtube-music-desktop-app", NULL,       NULL,      NULL,      1 << 6,      -1,           0,           1,           50,50,500,500,       5 },
-	{ "zoom",                      NULL,       NULL,      NULL,      1 << 7,      -1,           0,           1,           50,50,500,500,       5 },
-	{ "KeePassXC",                 NULL,       NULL,      NULL,      1 << 8,      -1,           0,           1,           50,50,500,500,       5 },
-	{ "qBittorrent",               NULL,       NULL,      NULL,      1 << 8,      -1,           0,           1,           50,50,500,500,       5 },
+	{ "firefox",                   NULL,       NULL,     "\uf269",   1 << 1,      -1,       1,         0,           1,           50,50,500,500,     5 },
+	{ "code-oss",                  NULL,       NULL,      NULL,      1 << 2,      -1,       1,         0,           1,           50,50,500,500,     5 },
+	{ "Emacs",                     NULL,       NULL,     "\uf1b2",   1 << 2,      -1,       1,         0,           1,           50,50,500,500,     5 },
+	{ "Subl3",                     NULL,       NULL,      NULL,      1 << 2,      -1,       1,         0,           1,           50,50,500,500,     5 },
+	{ "Nemo",                      NULL,       NULL,      NULL,      1 << 4,      -1,       1,         0,           1,           50,50,500,500,     5 },
+	{ "mpv",                       NULL,       NULL,      NULL,      1 << 5,      -1,       1,         0,           1,           50,50,500,500,     5 },
+	{ terminal,                   "ncmpcpp",   NULL,      NULL,      1 << 6,      -1,       1,         0,           1,           50,50,500,500,     5 },
+	{ "youtube-music-desktop-app", NULL,       NULL,      NULL,      1 << 6,      -1,       1,         0,           1,           50,50,500,500,     5 },
+	{ "zoom",                      NULL,       NULL,      NULL,      1 << 7,      -1,       1,         0,           1,           50,50,500,500,     5 },
+	{ "KeePassXC",                 NULL,       NULL,      NULL,      1 << 8,      -1,       1,         0,           1,           50,50,500,500,     5 },
+	{ "qBittorrent",               NULL,       NULL,      NULL,      1 << 8,      -1,       1,         0,           1,           50,50,500,500,     5 },
 
 	// floating rules
-	{ "qimgv",                     NULL,       NULL,      NULL,      0,           -1,           1,           1,           0,0,1450,900,      5 },
-	{ "Hachoir-metadata-gtk",      NULL,       NULL,      NULL,      0,           -1,           1,           1,           0,0,500,500,       5 },
-	{ "Gcolor3",                   NULL,       NULL,      NULL,      0,           -1,           1,           1,           0,0,800,400,       5 },
-	{ "Gnome-calculator",          NULL,       NULL,      NULL,      0,           -1,           1,           1,           0,0,500,700,       5 },
-	{ "Android Emulator",          NULL,       NULL,      NULL,      0,           -1,           1,           1,           0,0,500,500,       5 },
-	{ "Blueberry.py",              NULL,       NULL,      NULL,      0,           -1,           1,           1,           0,0,500,500,       5 },
-	{ "Zoom Group Chat",           NULL,       NULL,      NULL,      0,           -1,           1,           1,           0,0,500,500,       5 },
-	{ "XVkbd",                     NULL,       NULL,      NULL,      0,           -1,           1,           1,           0,0,900,300,       5 },
-	{ "Gsimplecal",                NULL,       NULL,      NULL,      0,           -1,           1,           0,           -1,-1,300,200,     5 },
-  { "Emacs",                     NULL,      "Ediff",   "\uf1b2",   0,           -1,           1,           1,           -1,-1,180,60,      5 },
-  { "Blueman-manager",           NULL,       NULL,      NULL,      0,           -1,           1,           1,           0,0,900,600,       5 },
+	{ "qimgv",                     NULL,       NULL,      NULL,      0,           -1,       1,         1,           1,           0,0,1450,900,      5 },
+	{ "Hachoir-metadata-gtk",      NULL,       NULL,      NULL,      0,           -1,       1,         1,           1,           0,0,500,500,       5 },
+	{ "Gcolor3",                   NULL,       NULL,      NULL,      0,           -1,       1,         1,           1,           0,0,800,400,       5 },
+	{ "Gnome-calculator",          NULL,       NULL,      NULL,      0,           -1,       1,         1,           1,           0,0,500,700,       5 },
+	{ "Android Emulator",          NULL,       NULL,      NULL,      0,           -1,       1,         1,           1,           0,0,500,500,       5 },
+	{ "Blueberry.py",              NULL,       NULL,      NULL,      0,           -1,       1,         1,           1,           0,0,500,500,       5 },
+	{ "Zoom Group Chat",           NULL,       NULL,      NULL,      0,           -1,       1,         1,           1,           0,0,500,500,       5 },
+	{ "XVkbd",                     NULL,       NULL,      NULL,      0,           -1,       1,         1,           1,           0,0,900,300,       5 },
+	{ "Gsimplecal",                NULL,       NULL,      NULL,      0,           -1,       1,         1,           0,           -1,-1,300,200,     5 },
+  { "Emacs",                     NULL,      "Ediff",   "\uf1b2",   0,           -1,       1,         1,           1,           -1,-1,180,60,      5 },
+  { "Blueman-manager",           NULL,       NULL,      NULL,      0,           -1,       1,         1,           1,           0,0,900,600,       5 },
+
+  // prohibit focus
+  { "Nemo-preview-start",        NULL,       NULL,      NULL,      0,           -1,       0,         1,           0,           -1,-1,900,600,     5 },
 };
 
 /* key definitions */
